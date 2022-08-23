@@ -1,0 +1,70 @@
+<div class="card" ng-if="!producto">
+    <div class="card-header d-flex justify-content-between">
+        <h5>Pedidos registrados</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Visto</th>
+                        <th scope="col">Ver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Juan perez</th>
+                        <td>Av guerrero #56</td>
+                        <td>777777777777</td>
+                        <td><span class="text-success">Visto</span></td>
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-outline-info btn-rounded"
+                                data-mdb-ripple-color="dark"
+                            >
+                                <i class="far fa-eye"></i> Ver
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Wilson Melson</th>
+                        <td>Av desconocido #45</td>
+
+                        <td>888888888</td>
+                        <td><strong class="text-danger">Sin ver</strong></td>
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-outline-info btn-rounded"
+                                data-mdb-ripple-color="dark"
+                            >
+                                <i class="far fa-eye"></i> Ver
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Roberto Godinez</th>
+                        <td>Av del trabajo #455</td>
+
+                        <td>668888844</td>
+                        <td><span class="text-success">Visto</span></td>
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-outline-info btn-rounded"
+                                data-mdb-ripple-color="dark"
+                            >
+                                <i class="far fa-eye"></i> Ver
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer text-muted"></div>
+</div>

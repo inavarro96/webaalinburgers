@@ -1,0 +1,141 @@
+<link rel="stylesheet" href="css/mdb.min.css" />
+<div class="card" ng-if="!usuario">
+    <div class="card-header d-flex justify-content-between">
+        <h5>Usuarios registrados</h5>
+        <button
+            type="button"
+            class="btn btn-outline-primary btn-rounded"
+            data-mdb-ripple-color="dark"
+            ng-click="addUsuario()"
+        >
+            <i class="fas fa-plus"></i> Agregar
+        </button>
+    </div>
+    <div class="card-body">
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th>Usuarios</th>
+                    <th>Privilegios</th>
+                    <th>Creado</th>
+                    <th>Eliminar</th>
+                    <th>Modificar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="fw-bold mb-1">John Doe</p>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">Administrador</p>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">28/05/2022</p>
+                    </td>
+                    <td>
+                        <button
+                            type="button"
+                            class="btn btn-outline-danger btn-rounded"
+                            data-mdb-ripple-color="dark"
+                            ng-click="confirmDelete()"
+                        >
+                            <i class="far fa-trash-alt"></i> Eliminar
+                        </button>
+                    </td>
+                    <td>
+                        <button
+                            type="button"
+                            class="btn btn-outline-warning btn-rounded"
+                            data-mdb-ripple-color="dark"
+                            ng-click="editarUsuario()"
+                        >
+                            <i class="fas fa-pen"></i> Editar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-muted"></div>
+</div>
+
+<div class="card" ng-if="usuario">
+    <div class="card-header d-flex justify-content-between">
+        <h5>{{usuario.id?'Editar':'Agregar'}} usuario</h5>
+        <button
+            type="button"
+            class="btn btn-outline-primary btn-rounded"
+            data-mdb-ripple-color="dark"
+            ng-click="regresar()"
+        >
+            <i class="fas fa-arrow-left"></i> Regresar
+        </button>
+    </div>
+    <div class="card-body">
+        <form class="row justify-content-center" autocomplete="off">
+            <div class="col-md-4 col-sm-12">
+                <div class="form-outline">
+                    <input
+                        type="text"
+                        id="usuario"
+                        class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="usuario">Usuario</label>
+                </div>
+                <div class="form-outline">
+                    <input
+                        type="password"
+                        id="password"
+                        class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="password">Contraseña</label>
+                </div>
+                <div class="form-outline">
+                    <div class="btn-group">
+                        <input
+                            type="radio"
+                            class="btn-check"
+                            name="options"
+                            id="usuario"
+                            autocomplete="off"
+                            checked
+                        />
+                        <label class="btn btn-light" for="usuario"
+                            >Usuario</label
+                        >
+
+                        <input
+                            type="radio"
+                            class="btn-check"
+                            name="options"
+                            id="administrador"
+                            autocomplete="off"
+                        />
+                        <label class="btn btn-light" for="administrador"
+                            >Administrador</label
+                        >
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+        <button
+            type="button"
+            class="btn btn-outline-primary btn-rounded"
+            data-mdb-ripple-color="dark"
+        >
+            {{producto.id?'Editar':'Agregar'}}
+        </button>
+        <button
+            type="button"
+            class="btn btn-outline-warning btn-rounded"
+            data-mdb-ripple-color="dark"
+            ng-click="regresar()"
+        >
+            Cancelar
+        </button>
+    </div>
+</div>
+<script type="text/javascript" src="js/mdb.min.js"></script>

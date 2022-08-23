@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="app">
     <head>
         <meta charset="UTF-8" />
         <meta
@@ -22,11 +22,6 @@
         <link rel="stylesheet" href="css/mdb.min.css" />
         <!-- Custom styles -->
         <link rel="stylesheet" href="css/admin.css" />
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-            integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-            crossorigin="anonymous"
-        ></script>
     </head>
 
     <body>
@@ -40,7 +35,7 @@
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
                         <a
-                            href="#"
+                            href="#!/"
                             class="list-group-item list-group-item-action py-2 ripple"
                             aria-current="true"
                         >
@@ -48,21 +43,21 @@
                             ><span>Dashboard</span>
                         </a>
                         <a
-                            href="#"
+                            href="#!/productos"
                             class="list-group-item list-group-item-action py-2 ripple active"
                         >
                             <i class="fas fa-chart-area fa-fw me-3"></i
                             ><span>Productos</span>
                         </a>
                         <a
-                            href="#"
+                            href="#!/pedidos"
                             class="list-group-item list-group-item-action py-2 ripple"
                             ><i class="fas fa-money-bill fa-fw me-3"></i
                             ><span>Pedidos</span></a
                         >
 
                         <a
-                            href="#"
+                            href="#!/usuarios"
                             class="list-group-item list-group-item-action py-2 ripple"
                             ><i class="fas fa-users fa-fw me-3"></i
                             ><span>Usuarios</span></a
@@ -94,12 +89,14 @@
 
                     <!-- Brand -->
                     <a class="navbar-brand" href="#">
-                        <img
+                        <!-- <img
                             src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
                             height="25"
                             alt=""
                             loading="lazy"
-                        />
+                        /> -->
+
+                        Alien Burgers
                     </a>
 
                     <!-- Right links -->
@@ -186,156 +183,7 @@
 
         <!--Main layout-->
         <main style="margin-top: 58px">
-            <div class="container pt-4">
-                <!--Section: Sales Performance KPIs-->
-                <section class="mb-4">
-                    <div class="card">
-                        <div class="card-header text-center py-3">
-                            <h5 class="mb-0 text-center">
-                                <strong>Productos más vendidos</strong>
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Etiqueta</th>
-                                            <th scope="col">Nombre Producto</th>
-                                            <th scope="col">Precio</th>
-                                            <th scope="col">
-                                                Cantidad vendida
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">Value</th>
-                                            <td>18,492</td>
-                                            <td>$4,787.64</td>
-                                            <td>$13.68</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                Percentage change
-                                            </th>
-                                            <td>
-                                                <span class="text-danger">
-                                                    <i
-                                                        class="fas fa-caret-down me-1"
-                                                    ></i
-                                                    ><span>-48.8%%</span>
-                                                </span>
-                                            </td>
-
-                                            <td>
-                                                <span class="text-success">
-                                                    <i
-                                                        class="fas fa-caret-up me-1"
-                                                    ></i
-                                                    ><span>29.6%</span>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="text-danger">
-                                                    <i
-                                                        class="fas fa-caret-down me-1"
-                                                    ></i
-                                                    ><span>-11.5%</span>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Absolute change</th>
-                                            <td>
-                                                <span class="text-danger">
-                                                    <i
-                                                        class="fas fa-caret-down me-1"
-                                                    ></i
-                                                    ><span>-17,654</span>
-                                                </span>
-                                            </td>
-
-                                            <td>
-                                                <span class="text-success">
-                                                    <i
-                                                        class="fas fa-caret-up me-1"
-                                                    ></i
-                                                    ><span>$1,092.72</span>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="text-danger">
-                                                    <i
-                                                        class="fas fa-caret-down me-1"
-                                                    ></i
-                                                    ><span>$-1.78</span>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!--Section: Sales Performance KPIs-->
-
-                <!--Section: Statistics with subtitles-->
-                <section>
-                    <div class="row">
-                        <div class="col-xl-6 col-md-12 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div
-                                        class="d-flex justify-content-between p-md-1"
-                                    >
-                                        <div class="d-flex flex-row">
-                                            <div class="align-self-center">
-                                                <i
-                                                    class="fas fa-pencil-alt text-info fa-3x me-4"
-                                                ></i>
-                                            </div>
-                                            <div>
-                                                <h4>Total Productos</h4>
-                                                <p class="mb-0">Registrados</p>
-                                            </div>
-                                        </div>
-                                        <div class="align-self-center">
-                                            <h2 class="h1 mb-0">18,000</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-md-12 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div
-                                        class="d-flex justify-content-between p-md-1"
-                                    >
-                                        <div class="d-flex flex-row">
-                                            <div class="align-self-center">
-                                                <i
-                                                    class="far fa-comment-alt text-warning fa-3x me-4"
-                                                ></i>
-                                            </div>
-                                            <div>
-                                                <h4>Total Productos</h4>
-                                                <p class="mb-0">Registrados</p>
-                                            </div>
-                                        </div>
-                                        <div class="align-self-center">
-                                            <h2 class="h1 mb-0">84,695</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!--Section: Statistics with subtitles-->
-            </div>
+            <div class="container pt-4" ng-view></div>
         </main>
         <!--Main layout-->
         <footer class="bg-light text-lg-start">
@@ -353,7 +201,22 @@
         </footer>
         <!-- MDB -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
-        <!-- Custom scripts -->
-        <script type="text/javascript" src="js/admin.js"></script>
+        <!-- Angular -->
+        <script src="js/angular.min.js"></script>
+        <!-- Angular route -->
+        <script src="js/angular-route.mim.js"></script>
+        <!-- Sweetalert -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Angular Modules -->
+        <script src="app/modules/app.js"></script>
+        <script src="app/modules/router.js"></script>
+        <!-- Angular directives -->
+        <!-- Angular factories -->
+        <!-- Angular services -->
+        <!-- Angular controllers -->
+        <script src="app/controllers/mainCtrl.js"></script>
+        <script src="app/controllers/productoCtrl.js"></script>
+        <script src="app/controllers/usuarioCtrl.js"></script>
+        <script src="app/controllers/pedidoCtrl.js"></script>
     </body>
 </html>
