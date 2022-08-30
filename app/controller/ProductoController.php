@@ -12,23 +12,23 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     $response['state'] = 'OK';
 
     if($_GET['action'] === 'get') {
-        $response['data'] = $service ->getAll();
+        $response['data'] = $service -> getAll();
     }
 
     if($_GET['action'] === 'getById') {
-        $response['data'] = $service ->getById($_GET['id']);
+        $response['data'] = $service -> getById($_GET['id']);
     }
 
     if($_GET['action'] === 'post') {
-        $response['data'] = $service ->post($_POST);
+        $response['data'] = $service -> post($_POST);
     }
 
     if($_GET['action'] === 'put') {
-        $response['data'] = $service ->put($_POST);
+        $response['data'] = $service -> put($_POST);
     }
 
     if($_GET['action'] === 'delete') {
-        $response['data'] = $service ->delete($_POST['id']);
+        $response['data'] = $service -> delete($_POST['id']);
     }
 
 
