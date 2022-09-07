@@ -5,11 +5,12 @@ require_once = "Connection.php";
 class ProductoModel extends Connection {
 
     public function insert($producto) {
-        $stm = Connection::connect()->prepare("INSERT INTO producto() VALUES(:nombre, :precio, :descripcion)");
+        $stm = Connection::connect()->prepare("INSERT INTO producto() VALUES(:nombre, :precio, :descripcion, cantidad,imagen)");
         $stm -> bindParam("nombre", $producto['nombre'], PDO::PARAM_STR);
         $stm -> bindParam("precio", $producto['precio'], PDO::PARAM_INT);
         $stm -> bindParam("descripcion", $producto['descripcion'], PDO::PARAM_STR);
-
+        $stm -> bindParam("cantidad", $producto['cantidad'], PDO::PARAM_STR);
+        $stm -> bindParam("imagen", $producto['imagen'], PDO::PARAM_STR);
         if($stm->execute()) {
             return "success";
         } else {

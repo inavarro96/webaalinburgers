@@ -23,32 +23,32 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr data-ng-repeat="producto in productos">
                     <td>
                         <div class="d-flex align-items-center">
                             <img
-                                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                src="{{producto.imagen}}"
                                 alt=""
                                 style="width: 45px; height: 45px"
                                 class="rounded-circle"
                             />
                             <div class="ms-3">
-                                <p class="fw-bold mb-1">Producto</p>
+                                <p class="fw-bold mb-1">{{producto.nombre}}</p>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <p class="fw-normal mb-1">$33</p>
+                        <p class="fw-normal mb-1">{{producto.precio}}</p>
                     </td>
                     <td>
-                        <p class="fw-normal mb-1">8888</p>
+                        <p class="fw-normal mb-1">{{producto.cantidad}}</p>
                     </td>
                     <td>
                         <button
                             type="button"
                             class="btn btn-outline-danger btn-rounded"
                             data-mdb-ripple-color="dark"
-                            ng-click="confirmDelete()"
+                            ng-click="confirmDelete(producto)"
                         >
                             <i class="far fa-trash-alt"></i> Eliminar
                         </button>
@@ -58,7 +58,7 @@
                             type="button"
                             class="btn btn-outline-warning btn-rounded"
                             data-mdb-ripple-color="dark"
-                            ng-click="editarProducto()"
+                            ng-click="editarProducto(producto)"
                         >
                             <i class="fas fa-pen"></i> Editar
                         </button>
@@ -83,34 +83,56 @@
         </button>
     </div>
     <div class="card-body">
-        <form class="row justify-content-center">
+        <form
+            class="row justify-content-center"
+            name="formAlumno"
+            data-ng-submit="submitForm(formAlumno.$valid)"
+            novalidate
+        >
             <div class="col-md-4 col-sm-12">
                 <div class="form-outline">
                     <input
                         type="text"
-                        id="usuario"
+                        id="nombre"
                         class="form-control form-control-lg"
+                        required
+                        name="nombre"
+                        data-ng-model="producto.nombre"
                     />
-                    <label class="form-label" for="usuario">Usuario</label>
+                    <label class="form-label" for="nombre">Nombre</label>
                 </div>
                 <div class="form-outline">
                     <input
                         type="text"
-                        id="privilegios"
+                        id="precio"
+                        required
+                        data-ng-model="producto.precio"
+                        name="precio"
                         class="form-control form-control-lg"
                     />
-                    <label class="form-label" for="privilegios"
-                        >Privilegios</label
-                    >
+                    <label class="form-label" for="precio">Precio</label>
                 </div>
                 <div class="form-outline">
                     <input
                         type="text"
+                        id="cantidad"
+                        required
+                        data-ng-model="producto.cantidad"
+                        name="cantidad"
+                        class="form-control form-control-lg"
+                    />
+                    <label class="form-label" for="cantidad">Cantidad</label>
+                </div>
+                <div class="form-outline">
+                    <textarea
                         id="descripcion"
                         class="form-control form-control-lg"
-                    />
+                        required
+                        name="descripcion"
+                        data-ng-model="producto.descripcion"
+                    ></textarea>
                     <label class="form-label" for="descripcion"
-                        >Contraseña</label
+                        >Descripcion</label
                     >
                 </div>
                 <div class="form-outline">

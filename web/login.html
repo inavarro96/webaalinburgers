@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="appLogin">
     <head>
         <meta charset="UTF-8" />
         <meta
@@ -23,7 +23,7 @@
         <!-- Custom styles -->
         <link rel="stylesheet" href="css/style.css" />
     </head>
-    <body>
+    <body data-ng-controller="loginCtrl">
         <!--Main Navigation-->
         <header>
             <style>
@@ -237,5 +237,38 @@
         <script type="text/javascript" src="js/mdb.min.js"></script>
         <!-- Custom scripts -->
         <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+
+        <script>
+            const app = angular.module("appLogin", []);
+            app.controller("loginCtrl", function ($scope, $http) {
+                $scope.user = null;
+
+                $scope.login = (data) => {
+                    $http({
+                        url: "/webalinburgers/app/controller/UsuarioController.php?action=login",
+                        method: "POST",
+                        data: $.param(data),
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                    }).then(
+                        function (response) {
+                            $scope.userData = response.data.data;
+                            if (!$scope.userData.id) {
+                                $scope.mensajeError =
+                                    "Usuario o contraseña incorrectos";
+                            } else {
+                                location.reload();
+                            }
+                        },
+                        function (response) {
+                            $scope.mensajeError = "Error al iniciar sesión";
+                            console.error(response);
+                        }
+                    );
+                };
+            });
+        </script>
     </body>
 </html>
