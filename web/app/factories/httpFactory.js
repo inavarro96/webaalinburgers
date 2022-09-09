@@ -1,5 +1,5 @@
 app.factory("httpFactory", function($http, $q) {
-    const URL = '/webalinburgers/app/controller/';
+    const URL = '/webaalinburgers/app/controller/';
 
     return {
         get: (path) => {
@@ -46,6 +46,19 @@ app.factory("httpFactory", function($http, $q) {
 				method : "POST",
 				data :  $.param(data),
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+			}).then(function(response) {
+				return  response.data
+			}, function(response) {
+				console.error(response);
+				return $q.reject(response);
+			});
+		},
+		post: (path, data) => {
+            return $http({
+				url : URL + path,
+				method : "POST",
+				data,
+				headers: {'Content-Type': undefined}
 			}).then(function(response) {
 				return  response.data
 			}, function(response) {

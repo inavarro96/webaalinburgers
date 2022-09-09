@@ -4,7 +4,7 @@ require_once "../model/ProductoModel.php";
 require_once "../service/ProductoService.php";
 
 header('Content-Type: application/json');
-$response array('state'=>'','data' => '');
+$response = array('state'=>'','data' => '');
 
 if(isset($_GET['action']) and !empty($_GET['action'])) {
 

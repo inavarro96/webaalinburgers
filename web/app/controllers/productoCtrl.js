@@ -13,9 +13,7 @@ app.controller("productoCtrl", function($scope, productoService) {
     }
 
     $scope.addProducto = () => {
-        $scope.producto = {
-            fechaAlta: new Date()
-        };
+        $scope.producto = {};
     }
     $scope.regresar = () => {
         $scope.producto = null;
@@ -26,6 +24,7 @@ app.controller("productoCtrl", function($scope, productoService) {
     }
 
     $scope.submitForm = isValid => {
+        console.log('sub')
         if(isValid) {
             if($scope.producto.id) {
                 $scope.actualizar();
@@ -36,6 +35,9 @@ app.controller("productoCtrl", function($scope, productoService) {
     }
 
     $scope.registrar = () => {
+
+        $scope.producto.imagen = '';
+        console.log($scope.producto);
         productoService.post($scope.producto).then(data => {
             if(data.data) {
                 Swal.fire(
@@ -46,6 +48,8 @@ app.controller("productoCtrl", function($scope, productoService) {
                      timer: 1300
                     }
                    )
+                   $scope.producto = null;
+                   $scope.getProductos();
             } else {
                 Swal.fire(
                     {

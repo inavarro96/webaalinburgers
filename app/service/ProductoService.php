@@ -26,7 +26,7 @@ class ProductoService {
         return $result;
     }
 
-    public funtion delete($id) {
+    public function delete($id) {
         $result = null;
         if(isset($id) and !empty($id)) {
             $mvc = new ProductoModel();

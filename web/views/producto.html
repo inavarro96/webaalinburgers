@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="css/mdb.min.css" />
 <div class="card" ng-if="!producto">
     <div class="card-header d-flex justify-content-between">
-        <h5>Productosb registrados</h5>
+        <h5>Productos registrados</h5>
         <button
             type="button"
             class="btn btn-outline-primary btn-rounded"
@@ -144,24 +144,26 @@
                     />
                 </div>
             </div>
+            <div class="card-footer d-flex justify-content-center">
+                <input
+                    type="submit"
+                    class="btn btn-outline-primary btn-rounded"
+                    data-mdb-ripple-color="dark"
+                    value="{{producto.id?'Editar':'Agregar'}}"
+                >
+                    
+                
+                <button
+                    type="button"
+                    class="btn btn-outline-warning btn-rounded"
+                    data-mdb-ripple-color="dark"
+                    ng-click="regresar()"
+                >
+                    Cancelar
+                </button>
+            </div>
         </form>
     </div>
-    <div class="card-footer d-flex justify-content-center">
-        <button
-            type="button"
-            class="btn btn-outline-primary btn-rounded"
-            data-mdb-ripple-color="dark"
-        >
-            {{producto.id?'Editar':'Agregar'}}
-        </button>
-        <button
-            type="button"
-            class="btn btn-outline-warning btn-rounded"
-            data-mdb-ripple-color="dark"
-            ng-click="regresar()"
-        >
-            Cancelar
-        </button>
-    </div>
+  
 </div>
 <script type="text/javascript" src="js/mdb.min.js"></script>
