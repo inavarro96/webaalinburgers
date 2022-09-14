@@ -53,7 +53,7 @@ app.factory("httpFactory", function($http, $q) {
 				return $q.reject(response);
 			});
 		},
-		post: (path, data) => {
+		postFile: (path, data) => {
             return $http({
 				url : URL + path,
 				method : "POST",

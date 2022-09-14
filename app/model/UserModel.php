@@ -2,10 +2,10 @@
 
 require_once "Connection.php";
 
-class UserModel extends Connection {
+class UsuarioModel extends Connection {
     
-    public function inser($user) {
-        $stm = Connection::connect() -> prepare("INSERT INTO (usuario, password, nombre, apellidos, id_perfil) VALUES (:usuario, :password, :nombre, :apellidos, :id_perfil)");
+    public function insert($user) {
+        $stm = Connection::connect() -> prepare("INSERT INTO usuario(usuario, password, nombre, apellidos, perfil) VALUES (:usuario, :password, :nombre, :apellidos, :perfil)");
 
         $options = [
             'cost' =>12
@@ -13,10 +13,10 @@ class UserModel extends Connection {
 
         $passwordEncrypt = password_hash($user['password'], PASSWORD_BCRYPT,  $options);
         $stm -> bindParam("usuario",$user['usuario'], PDO::PARAM_STR);
-        $stm -> bindParam("password",$passworEncrypt, PDO::PARAM_STR);
+        $stm -> bindParam("password",$passwordEncrypt, PDO::PARAM_STR);
         $stm -> bindParam("nombre",$user['nombre'], PDO::PARAM_STR);
         $stm -> bindParam("apellidos",$user['apellidos'], PDO::PARAM_STR);
-        $stm -> bindParam("id_perfil",$user['id_perfil'], PDO::PARAM_INT);
+        $stm -> bindParam("perfil",$user['perfil'], PDO::PARAM_INT);
 
         if($stm->execute()){
             return "success";
@@ -71,7 +71,7 @@ class UserModel extends Connection {
     }
 
     public function getAll() {
-        $query = "SELECT * FROM WHERE fecha_baja IS NOT NULL";
+        $query = "SELECT * FROM usuario WHERE fecha_baja IS NULL";
         $stm = Connection::connect()->prepare($query);
         $stm->execute();
         $user = $stm->fetchAll(PDO::FETCH_ASSOC);

@@ -5,11 +5,12 @@ class UsuarioService {
     public function post($usuario) {
         $result = null;
 
-        if(isset($user['usuario']) and !empty($usuario['usuario'])){
+        if(isset($usuario['usuario']) and !empty($usuario['usuario'])){
+           
             $mvc = new UsuarioModel();
             $result = $mvc -> insert($usuario);
         } else {
-            $result = 'Si datos';
+            $result = 'Sin datos';
         }
 
         return $result;
@@ -43,7 +44,7 @@ class UsuarioService {
         $result = null;
 
         $mvc = new UsuarioModel();
-        $resul = $mvc -> getAll();
+        $result = $mvc -> getAll();
 
         return $result;
     }
@@ -58,7 +59,7 @@ class UsuarioService {
 
             if(isset($user) and !empty($user)) {
                 session_start();
-                $_SESSION['user'] = $user
+                $_SESSION['user'] = $user;
                 $result = $user;
             } else {
                 $result = 'Usuario o contraseña incorrectos';

@@ -1,6 +1,6 @@
 <?php
 
-require_once "../model/UsuarioModel.php";
+require_once "../model/UserModel.php";
 require_once "../service/UsuarioService.php";
 
 header('Content-Type: application/json');
@@ -17,11 +17,12 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     }
 
     if($_GET['action'] === 'getAll') {
-        $response['data'] = $service -> getAll($_POST);
+        $response['data'] = $service -> getAll();
      }
 
      if($_GET['action'] === 'post') {
-        $response['data'] = $service-> post($_POST);
+     
+         $response['data'] = $service-> post($_POST);
      }
 
      if($_GET['action'] === 'put') {

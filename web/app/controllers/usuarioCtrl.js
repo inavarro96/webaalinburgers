@@ -11,9 +11,7 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
     }
 
     $scope.addUsuario = () => {
-        $scope.usuario = {
-            fechaAlta: new Date()
-        };
+        $scope.usuario = {};
     }
     $scope.regresar = () => {
         $scope.usuario = null;
@@ -21,12 +19,14 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
     $scope.editarUsuario = usuario => {
         $scope.usuario = {};
         angular.copy(usuario, $scope.usuario);
+       
     }
 
     $scope.submitForm = isValid => {
+        console.log('submit', $scope.usuario)
         if(isValid) {
             if($scope.usuario.id) {
-                $scope.update();
+                $scope.actualizar();
             } else {
                 $scope.registrar();
             }
@@ -34,7 +34,8 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
     };
 
     $scope.registrar = () => {
-        usuarioService.post($scope.producto).then( data => {
+        console.log('data', $scope.usuario)
+        usuarioService.post($scope.usuario).then( data => {
             if(data.data) {
                 Swal.fire(
                     {
@@ -44,6 +45,8 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
                      timer: 1300
                     }
                    )
+                $scope.usuario = null;
+                $scope.getUsuarios();
             } else {
                 Swal.fire(
                     {
@@ -67,7 +70,8 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
     }
 
     $scope.actualizar = () => {
-        usuarioService.put($scope.producto).then( data => {
+        console.log('actualizar')
+        usuarioService.put($scope.usuario).then( data => {
             if(data.data) {
                 Swal.fire(
                     {
@@ -77,6 +81,8 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
                      timer: 1300
                     }
                    )
+                   $scope.usuario = null;
+                   $scope.getUsuarios();
             } else {
                 Swal.fire(
                     {
@@ -85,7 +91,9 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
                      showConfirmButton: false,
                      timer: 1300
                     }
-                   )
+                   );
+                   $scope.usuario = null;
+                   $scope.getUsuarios();
             }
         }, reject => {
             Swal.fire(
@@ -110,6 +118,8 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
                      timer: 1300
                     }
                    )
+
+                   $scope.getUsuarios();
             } else {
                 Swal.fire(
                     {

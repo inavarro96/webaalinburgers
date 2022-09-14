@@ -24,6 +24,7 @@ angular.module('app').service('usuarioService', function(httpFactory, $q) {
     };
 
     SELF.post = (data) => {
+        console.log('DATA', data)
         return $q((resolve, reject) => {
             httpFactory.post(`${URL}post`, data).then(response => {
                 resolve(response);
