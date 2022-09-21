@@ -79,7 +79,7 @@ class UsuarioModel extends Connection {
     }
 
     public function login($dataUser) {
-        $query = "SELECT * FROM usuario WHERE usuario = :usuario AND fecha_baja IS NOT NULL";
+        $query = "SELECT * FROM usuario WHERE usuario = :usuario AND fecha_baja IS NULL";
 
         $stm = Connection::connect() -> prepare($query);
         $stm -> bindParam("usuario",$dataUser['usuario'], PDO::PARAM_STR);
@@ -87,11 +87,12 @@ class UsuarioModel extends Connection {
         $stm -> execute();
         
         $user = $stm -> fetch(PDO::FETCH_ASSOC);
-    
-        if(password_verify($dataUser['password'], $user['password'])) {
+
+        if(!empty($user) && password_verify($dataUser['password'], $user['password']) == 1) {
             return $user;
-        } else {
-            return 'Usuario o contraseña incorrectos';
-        }
+        } 
+        
+        return 'Usuario o contraseña wsdwqdincorrectos';
+        
     }
 }

@@ -54,10 +54,10 @@ class UsuarioService {
         
         if(isset($usuario['usuario']) and !empty($usuario['usuario'])) {
             
-            $mvc = new UsuarioService();
+            $mvc = new UsuarioModel();
             $user = $mvc -> login($usuario);
 
-            if(isset($user) and !empty($user)) {
+            if(isset($user['id']) and !empty($user['id'])) {
                 session_start();
                 $_SESSION['user'] = $user;
                 $result = $user;

@@ -3,7 +3,8 @@
 session_start();
 
 if(isset($_SESSION['user'])) {
-    include "admin.php";
+    // include "web/dashboardAdmin.php";
+    header('Location: web/dashboardAdmin.php');
 } else {
-    include "pagina.html";
+    include "web/index.html";
 }

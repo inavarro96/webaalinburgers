@@ -21,7 +21,6 @@
         <!-- MDB -->
         <link rel="stylesheet" href="css/mdb.min.css" />
         <!-- Custom styles -->
-        <link rel="stylesheet" href="css/style.css" />
     </head>
     <body data-ng-controller="loginCtrl">
         <!--Main Navigation-->
@@ -143,18 +142,29 @@
                 >
                     <div class="container">
                         <div class="row justify-content-center">
+                           
                             <div class="col-xl-5 col-md-8">
+                                
                                 <form
+                                    name="formLogin"
+                                    ng-submit="login(formLogin)"
                                     class="bg-white rounded shadow-5-strong p-5"
                                 >
+                                <div class="card-body bg-danger text-white mb-4" ng-if="mensajeError">
+                                    <p class="card-text">{{mensajeError}}</p>
+                                   
+                                  </div>
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
                                         <input
                                             type="text"
-                                            id="username"
+                                            id="usuario"
                                             class="form-control"
+                                            ng-model="user.usuario"
+                                            required
+                                            name="usuario"
                                         />
-                                        <label class="form-label" for="username"
+                                        <label class="form-label" for="usuario"
                                             >usuario</label
                                         >
                                     </div>
@@ -165,6 +175,9 @@
                                             type="password"
                                             id="password"
                                             class="form-control"
+                                            ng-model="user.password"
+                                            required
+                                            name="password"
                                         />
                                         <label class="form-label" for="password"
                                             >Contraseña</label
@@ -232,22 +245,25 @@
             <!-- Copyright -->
         </footer>
         <!--Footer-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
         <!-- MDB -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
         <!-- Custom scripts -->
-        <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
 
         <script>
             const app = angular.module("appLogin", []);
             app.controller("loginCtrl", function ($scope, $http) {
                 $scope.user = null;
-
-                $scope.login = (data) => {
-                    $http({
-                        url: "/webalinburgers/app/controller/UsuarioController.php?action=login",
+                
+                $scope.login = (valid) => {
+                    $scope.mensajeError = null;
+                    console.log($scope.user)
+                    if(valid) {
+                        $http({
+                        url: "/webaalinburgers/app/controller/UsuarioController.php?action=login",
                         method: "POST",
-                        data: $.param(data),
+                        data: $.param($scope.user),
                         headers: {
                             "Content-Type": "application/x-www-form-urlencoded",
                         },
@@ -258,7 +274,8 @@
                                 $scope.mensajeError =
                                     "Usuario o contraseña incorrectos";
                             } else {
-                                location.reload();
+                                window.location.href = 'dashboardAdmin.php';
+                                // location.reload();
                             }
                         },
                         function (response) {
@@ -266,6 +283,8 @@
                             console.error(response);
                         }
                     );
+                    }
+                  
                 };
             });
         </script>
