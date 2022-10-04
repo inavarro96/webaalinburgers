@@ -12,10 +12,11 @@ class ProductoModel extends Connection {
         $stm -> bindParam("cantidad", $producto['cantidad'], PDO::PARAM_STR);
         $stm -> bindParam("imagen", $producto['imagen'], PDO::PARAM_STR);
         if($stm->execute()) {
-            return "success";
+            
+            return $this ->getLastId();
         } else {
             $error = $stm->errorInfo();
-            prin_r($stm->errorInfo());
+    
             return "Error: ".$error[2];
 
         }
@@ -31,7 +32,6 @@ class ProductoModel extends Connection {
             return "success";
         } else {
             $error = $stm->errorInfo();
-            prin_r($stm->errorInfo());
             return "Error: ".$error[2];
 
         }
@@ -39,12 +39,11 @@ class ProductoModel extends Connection {
 
     public function delete($id) {
         $stm = Connection::connect() -> prepare("UPDATE producto SET fecha_baja = CURDATE() WHERE id = :id");
-        $stm -> bindParam("id", $producto['id'], PDO::PARAM_INT);
+        $stm -> bindParam("id", $id, PDO::PARAM_INT);
         if($stm->execute()) {
             return "success";
         } else {
             $error = $stm->errorInfo();
-            prin_r($stm->errorInfo());
             return "Error: ".$error[2];
 
         }
@@ -61,9 +60,20 @@ class ProductoModel extends Connection {
     public function getAllById($id) {
         $query = "SELECT * FROM producto WHERE fecha_baja IS NULL AND id = $id";
         $stm = Connection::connect()->prepare($query);
-        $stm -> bindParam("id", $producto['id'], PDO::PARAM_INT);
+        $stm -> bindParam("id", $id, PDO::PARAM_INT);
         
         $stm ->execute();
         return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+    private function getLastId() {
+        $query = "SELECT LAST_INSERT_ID() id;";
+        $stm = Connection::connect()->prepare($query);
+        $stm -> bindParam("id", $id, PDO::PARAM_INT);
+        
+        $stm ->execute();
+        $id = $stm->fetch(PDO::FETCH_ASSOC);
+        return $id['id'];
+
     }
 }

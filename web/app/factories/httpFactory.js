@@ -53,11 +53,11 @@ app.factory("httpFactory", function($http, $q) {
 				return $q.reject(response);
 			});
 		},
-		postFile: (path, data) => {
+		postFile: (path, _data) => {
             return $http({
 				url : URL + path,
 				method : "POST",
-				data,
+				data, _data,
 				headers: {'Content-Type': undefined}
 			}).then(function(response) {
 				return  response.data

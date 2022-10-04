@@ -1,4 +1,4 @@
-app.controller("productoCtrl", function($scope, productoService) {
+app.controller("productoCtrl", function($scope, productoService, archivoService) {
     $scope.producto = null;
     $scope.productos = [];
 
@@ -36,40 +36,56 @@ app.controller("productoCtrl", function($scope, productoService) {
 
     $scope.registrar = () => {
 
-        $scope.producto.imagen = '';
-        console.log($scope.producto);
-        productoService.post($scope.producto).then(data => {
-            if(data.data) {
-                Swal.fire(
-                    {
-                     icon: 'success',
-                     title: 'Producto registrado',
-                     showConfirmButton: false,
-                     timer: 1300
-                    }
-                   )
-                   $scope.producto = null;
-                   $scope.getProductos();
-            } else {
+        let fd = new FormData();
+        fd.append('imagen', $scope.producto.uploadFoto);
+        console.log('dwqwd', $scope.producto.uploadFoto)
+        archivoService.postFoto(fd).then(response => {
+            console.log($scope.producto);
+            $scope.producto.id = response.id;
+            productoService.put($scope.producto).then(data => {
+                if(data.data) {
+                    Swal.fire(
+                        {
+                         icon: 'success',
+                         title: 'Producto registrado',
+                         showConfirmButton: false,
+                         timer: 1300
+                        }
+                       )
+                       $scope.producto = null;
+                       $scope.getProductos();
+                } else {
+                    Swal.fire(
+                        {
+                         icon: 'error',
+                         title: 'El producto no se registró',
+                         showConfirmButton: false,
+                         timer: 1300
+                        }
+                       )
+                }
+            }, reject => {
                 Swal.fire(
                     {
                      icon: 'error',
-                     title: 'El producto no se registró',
+                     title: 'Error al registrar el producto',
                      showConfirmButton: false,
                      timer: 1300
                     }
                    )
-            }
-        }, reject => {
+            })
+        }, error => {
             Swal.fire(
                 {
                  icon: 'error',
-                 title: 'Error al registrar el producto',
+                 title: 'No se subió la foto',
                  showConfirmButton: false,
                  timer: 1300
                 }
                )
-        })
+        });
+        
+        
     }
 
     $scope.actualizar = () => {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="appMenu">
     <head>
         <meta charset="UTF-8" />
         <meta
@@ -23,7 +23,7 @@
         <!-- Custom styles -->
         <link rel="stylesheet" href="css/style.css" />
     </head>
-    <body>
+    <body data-ng-controller="menuCtrl">
         <!--Main Navigation-->
         <header>
             <style>
@@ -140,18 +140,18 @@
 
         <main class="container mt-5">
             <div class="row flex-wrap">
-                <div class="col-6 col-md-4 col-sm-12 mb-4">
+                <div class="col-6 col-md-4 col-sm-12 mb-4" data-ng-repeat="producto in productos">
                     <div class="card">
                         <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                          <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
+                          <img src="{{producto.imagen}}" alt="no_encontrado" class="img-fluid" />
                           <a href="#!">
                             <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                           </a>
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title text-center">Nombre producto</h5>
+                          <h5 class="card-title text-center">{{producto.nombre}}</h5>
                           <p class="card-text text-center">
-                        <span>$89.22</span>
+                        <span>{{producto.precio}}</span>
                           </p>
                           <div
                           class="d-flex justify-content-center align-items-center pb-3"
@@ -160,6 +160,9 @@
                               type="button"
                               class="btn btn-outline-success btn-rounded ml-5"
                               data-mdb-ripple-color="dark"
+                              data-mdb-toggle="modal" 
+                              data-mdb-target="#modalAgregarProducto"
+                              data-ng-click="seleccionarProducto(producto)"
                           >
                               Agregar
                           </button>
@@ -174,48 +177,67 @@
                       </div>
                         </div>
                       </div>
-                </div>
-                <div class="col-6 col-md-4 col-sm-12">
-                    <div class="card">
-                        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                          <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
-                          <a href="#!">
-                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                          </a>
-                        </div>
-                        <div class="card-body">
-                          <h5 class="card-title text-center">Nombre producto</h5>
-                          <p class="card-text text-center">
-                        <span>$89.22</span>
-                          </p>
-                          <div
-                          class="d-flex justify-content-center align-items-center pb-3"
-                      >
-                          <button
-                              type="button"
-                              class="btn btn-outline-success btn-rounded ml-5"
-                              data-mdb-ripple-color="dark"
-                          >
-                              Agregar
-                          </button>
-                          <!-- <a
-                              href="#"
-                              class="btn btn-outline-info btn-rounded"
-                              data-mdb-ripple-color="dark"
-                              title="Ver información"
-                          >
-                              Ver
-                          </a> -->
-                      </div>
-                        </div>
-                      </div>
-                    </div>
                 </div>
 
-                <div class="col-6 col-md-4 col-sm-12">.col-6 .col-sm-3</div>
-                <div class="col-6 col-md-4 col-sm-12">.col-6 .col-sm-3</div>
             </div>
         </main>
+
+        <!-- Modal -->
+<div class="modal fade" id="modalAgregarProducto" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header mt-4">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar {{producto.nombre}}</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                  <img src="{{producto.imagen}}" alt="no_encontrado" class="img-fluid" />
+                  <a href="#!">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-center">{{producto.nombre}}</h5>
+                  <p class="card-text text-center">
+                    <span>{{producto.precio}}</span> <br><br>
+                    <span>Total: {{producto.precio * pedido.cantidad}}</span>
+                  </p>
+                  
+                  <div
+                  class="d-flex justify-content-center align-items-center pb-3"
+              >
+              </div>
+                </div>
+              </div>
+              <form  
+                    class="row justify-content-center"
+                    name="formMenu"
+                    novalidate>
+                    <div class="col-md-6 col-sm-12">
+
+                        <div class="form-outline mb-4 active">
+                            <input
+                                type="number"
+                                id="cantidad"
+                                class="form-control form-control-lg active"
+                                required
+                                name="cantidad"
+                                data-ng-model="pedido.cantidad"
+                            />
+                            <label class="form-label" for="cantidad">Cantidad</label>
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" ng-click="agregarProducto()">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
         <!--Footer-->
         <footer class="bg-light text-lg-start">
             <hr class="m-0" />
@@ -231,9 +253,80 @@
             <!-- Copyright -->
         </footer>
         <!--Footer-->
+        <!-- JQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
         <!-- MDB -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
         <!-- Custom scripts -->
         <script type="text/javascript" src="js/script.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            const app = angular.module("appMenu", []);
+            app.controller('menuCtrl', function($scope, $http) {
+                $scope.productos = [];
+                $scope.producto = null;
+                $scope.pedido = {};
+
+                $scope.getProductos = () => {
+                    $http({
+                        url: "/webaalinburgers/app/controller/ProductoController.php?action=get",
+                        method: "GET"
+                    }).then(function(response) {
+                        console.log(response.data.data)
+                        $scope.productos = response.data.data;
+                    }, function(response) {
+                        console.log(response);
+                        
+                    });
+                };
+
+                $scope.getProductosPedido = () => {
+                    $http({
+                        url: "/webaalinburgers/app/controller/PedidoController.php?action=getProductos",
+                        method: "GET"
+                    }).then(function(response) {
+                        console.log('Productos',response.data.data)
+                        $scope.productos = response.data.data;
+                    }, function(response) {
+                        console.log(response);
+                        
+                    });
+                };
+
+                $scope.seleccionarProducto = producto => {
+                    $scope.producto = producto;
+                    $scope.pedido.cantidad = 1;
+                };
+
+                $scope.agregarProducto = () => {
+                    $scope.pedido.id_producto = $scope.producto.id;
+                    $http({
+                        url : '/webaalinburgers/app/controller/PedidoController.php?action=addProducto',
+                        method : "POST",
+                        data :  $.param( $scope.pedido),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).then(function(response) {
+                        $scope.getProductosPedido();
+                        Swal.fire(
+                        {
+                         icon: 'success',
+                         title: 'Producto agregado',
+                         showConfirmButton: false,
+                         timer: 1300
+                        }
+                       )
+                    }, function(response) {
+                        console.error(response);
+
+                    });
+                };
+
+                angular.element(document).ready(function() {
+                    $scope.getProductos();
+                    $scope.getProductosPedido();
+                 });
+            });
+        </script>
     </body>
 </html>

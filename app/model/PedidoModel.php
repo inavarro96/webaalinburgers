@@ -42,11 +42,11 @@ class PedidoModel extends Connection {
         $res = null;
         foreach($pedido['productos'] as  &$producto) {
             
-            $stm3 =  Connection::connect() -> prepare("INSERT INTO producto_pedido(id_pedido, id_producto)
-            VALUES (:id_pedido, :id_producto)");
-            $stm3 -> bindParam("id_pedido",$producto['id'], PDO::PARAM_STR);
-            $stm3 -> bindParam("id_producto",$idPedido['id_pedido'], PDO::PARAM_STR);
-           
+            $stm3 =  Connection::connect() -> prepare("INSERT INTO producto_pedido(id_pedido, id_producto, cantidad)
+            VALUES (:id_pedido, :id_producto, :cantidad)");
+            $stm3 -> bindParam("id_pedido",$producto['id_pedido'], PDO::PARAM_STR);
+            $stm3 -> bindParam("id_producto",$idPedido['id_producto'], PDO::PARAM_STR);
+            $stm3 -> bindParam("cantidad",$idPedido['cantidad'], PDO::PARAM_STR);
             $res =  $stm3 -> execute();
         }
         if($res){
@@ -60,5 +60,8 @@ class PedidoModel extends Connection {
 
     public function delete($pedido) {
 
+        $result = null;
+
+        return $result;
     }
 }

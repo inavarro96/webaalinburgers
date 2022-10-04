@@ -13,6 +13,13 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     if($_GET['action'] == 'post') {
         $response['data'] = $service -> post($_POST);
     }
+    if($_GET['action'] == 'addProducto') {
+        $response['data'] = $service -> addProducto($_POST);
+    }
+
+    if($_GET['action'] == 'getProductos') {
+        $response['data'] = $service -> getProductos();
+    }
 
     if($_GET['action'] == 'delete') {
         $response['data'] = $service -> post($_POST['id_pedido']);

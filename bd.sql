@@ -28,3 +28,26 @@ create table usuario(
 
 
 SELECT * FROM usuario WHERE fecha_baja IS NULL
+
+-- nuevas tablas
+create table pedido(
+	id int not null auto_increment primary key,
+	nombre_completo varchar(45), 
+	direccion varchar(45), 
+	telefono varchar(45), 
+	visto TINYINT(1), 
+	atendido TINYINT(1), 
+	fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+	fecha_eliminado DATE default NULL
+);
+
+create table producto_pedido(
+	id int not null auto_increment primary key,
+	id_pedido INT not NULL, 
+	id_producto INT not null,
+	cantidad int default 0,
+	INDEX(id_pedido),
+	INDEX(id_producto),
+	FOREIGN  key (id_pedido) references pedido(id),
+	FOREIGN  key (id_producto) references producto(id)
+);

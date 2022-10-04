@@ -2,10 +2,10 @@
 
 app.config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {
     $routeProvider
-    .when("/", {
-        templateUrl:"/webaalinburgers/web/views/main.html",
-        controller:"mainCtrl"
-    })
+    // .when("/", {
+    //     templateUrl:"/webaalinburgers/web/views/main.html",
+    //     controller:"mainCtrl"
+    // })
     .when("/productos", {
         templateUrl:"/webaalinburgers/web/views/producto.html",
         controller:"productoCtrl"
@@ -18,5 +18,5 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
         templateUrl:"/webaalinburgers/web/views/pedido.html",
         controller:"pedidoCtrl"
     })
-    .otherwise({directTo: '/'})
+    .otherwise({directTo: '/productos'})
 }]);
