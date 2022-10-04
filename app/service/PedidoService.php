@@ -28,12 +28,42 @@ class PedidoService {
         return $result;
     }
 
-    public function delete($pedido) {
+    public function addProducto($pedido) {
+        $result = null;
+        if(isset($pedido['id_producto']) and !empty($pedido['id_producto'])) {
+            session_start();
+           $productos = array();
+
+           if(isset( $_SESSION['productos'] )) {
+                $productos = $_SESSION['productos'];
+           }
+           array_push($productos, $pedido);
+           $_SESSION['productos'] = $productos;
+           $result='success';
+        } else {
+            $result='Sin id_producto';
+        }
+        return $result;
+    }
+
+    public function getProductos() {
+        $result = null;
+        $productos = [];
+        session_start();
+        if(isset( $_SESSION['productos'] )) {
+            $productos = $_SESSION['productos'];
+        }
+        $result = $productos;
+        
+        return $result;
+    }
+
+    public function delete($id) {
         $result = null;
 
         if(isset($id) and !empty($id)) {
             $model = new PedidoModel();
-            $result = $model -> delete();
+            $result = $model -> delete($id);
         } else {
             $result = 'No cuenta con ID para eliminar';
         }

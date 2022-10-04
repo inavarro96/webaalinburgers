@@ -18,7 +18,8 @@ class ProductoService {
     public function put($producto) {
         $result = null;
         if(isset($producto['id']) and !empty($producto['id'])) {
-            
+            $mvc = new ProductoModel();
+            $result = $mvc -> update($producto);
         } else {
             $result = 'No cuenta con datos';
         }
@@ -30,7 +31,7 @@ class ProductoService {
         $result = null;
         if(isset($id) and !empty($id)) {
             $mvc = new ProductoModel();
-            $result = $mvc -> delete();
+            $result = $mvc ->delete($id);
         } else {
             $result = 'No cuenta con datos';
         }

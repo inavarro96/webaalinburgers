@@ -30,7 +30,7 @@ class UsuarioService {
 
     public function delete($id) {
         $result = null;
-
+        $mvc = new usuarioModel();
         if(isset($id) and !empty($id)) {
             $result = $mvc -> delete($id);
         } else {
