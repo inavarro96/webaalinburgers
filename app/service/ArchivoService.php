@@ -19,11 +19,9 @@ class ArchivoService {
                     return 'No se logró subir el archivo';
                 }
                 
-                $producto = array('nombre'=>'', 'precio'=>'0', 'descripcion'=>'','cantidad'=>'0','imagen'=> $nameFile.".".$info->getExtension());
-
-                $productoService = new ProductoModel();
+               
                 
-                return $productoService -> insert($producto);
+                return $nameFile.".".$info->getExtension();
                 
             }
         } else {

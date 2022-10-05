@@ -26,7 +26,7 @@
                 <tr data-ng-repeat="producto in productos">
                     <td>
                         <div class="d-flex align-items-center">
-                            <img
+                            <img ng-if="producto.imagen"
                                 src="../fotos/{{producto.imagen}}"
                                 alt=""
                                 style="width: 45px; height: 45px"
@@ -94,7 +94,7 @@
                     <input
                         type="text"
                         id="nombre"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{producto.id?'active':''}}"
                         required
                         name="nombre"
                         data-ng-model="producto.nombre"
@@ -108,7 +108,7 @@
                         required
                         data-ng-model="producto.precio"
                         name="precio"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{producto.id?'active':''}}"
                     />
                     <label class="form-label" for="precio">Precio</label>
                 </div>
@@ -119,14 +119,14 @@
                         required
                         data-ng-model="producto.cantidad"
                         name="cantidad"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{producto.id?'active':''}}"
                     />
                     <label class="form-label" for="cantidad">Cantidad</label>
                 </div>
                 <div class="form-outline mb-4">
                     <textarea
                         id="descripcion"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{producto.id?'active':''}}"
                         required
                         name="descripcion"
                         data-ng-model="producto.descripcion"
@@ -134,6 +134,14 @@
                     <label class="form-label" for="descripcion"
                         >Descripcion</label
                     >
+                </div>
+                <div class="form-outline mb-4" ng-if="producto.imagen">
+                    <img
+                        src="../fotos/{{producto.imagen}}"
+                        alt=""
+                        style="width: 100px; height: 100px"
+                        class="rounded-circle"
+                    />
                 </div>
                 <div class="form-outline mb-4">
                     <label class="form-label" for="imagen">Imagen</label>

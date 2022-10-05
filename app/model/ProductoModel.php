@@ -23,10 +23,11 @@ class ProductoModel extends Connection {
     }
 
     public function update($producto) {
-        $stm = Connection::connect()->prepare("UPDATE producto SET nombre = :nombre, precio = :precio, descripcion = :descripcion WHERE id = :id");
+        $stm = Connection::connect()->prepare("UPDATE producto SET nombre = :nombre, precio = :precio, descripcion = :descripcion, imagen = :imagen WHERE id = :id");
         $stm -> bindParam("nombre", $producto['nombre'], PDO::PARAM_STR);
         $stm -> bindParam("precio", $producto['precio'], PDO::PARAM_INT);
         $stm -> bindParam("descripcion", $producto['descripcion'], PDO::PARAM_STR);
+        $stm -> bindParam("imagen", $producto['imagen'], PDO::PARAM_STR);
         $stm -> bindParam("id", $producto['id'], PDO::PARAM_INT);
         if($stm->execute()) {
             return "success";

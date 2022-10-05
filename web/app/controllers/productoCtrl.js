@@ -41,9 +41,9 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
         console.log('dwqwd', $scope.producto.uploadFoto)
         archivoService.postFoto(fd).then(response => {
             console.log($scope.producto);
-            $scope.producto.id = response.data;
+            $scope.producto.imagen = response.data;
             $scope.producto.uploadFoto = null;
-            productoService.put($scope.producto).then(data => {
+            productoService.post($scope.producto).then(data => {
                 if(data.data) {
                     Swal.fire(
                         {
@@ -90,7 +90,30 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
     }
 
     $scope.actualizar = () => {
-        productoService.put($scope.alumno).then(data => {
+        if($scope.producto.uploadFoto) {
+            let fd = new FormData();
+            fd.append('imagen', $scope.producto.uploadFoto);
+            archivoService.postFoto(fd).then(response => {
+                $scope.producto.imagen = response.data;
+                $scope.producto.uploadFoto = null;
+                $scope.actualizarProducto();
+            }, reject => {
+                Swal.fire(
+                    {
+                     icon: 'error',
+                     title: 'No se subió la foto',
+                     showConfirmButton: false,
+                     timer: 1300
+                    }
+                   )
+            })
+        } else {
+            $scope.actualizarProducto();
+        }
+    }
+
+    $scope.actualizarProducto = () => {
+        productoService.put($scope.producto).then(data => {
             if(data.data) {
                 Swal.fire(
                     {
