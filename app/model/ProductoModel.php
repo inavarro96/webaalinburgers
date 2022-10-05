@@ -67,9 +67,8 @@ class ProductoModel extends Connection {
     }
 
     private function getLastId() {
-        $query = "SELECT LAST_INSERT_ID() id;";
+        $query = "SELECT MAX(id) as id FROM producto;";
         $stm = Connection::connect()->prepare($query);
-        $stm -> bindParam("id", $id, PDO::PARAM_INT);
         
         $stm ->execute();
         $id = $stm->fetch(PDO::FETCH_ASSOC);

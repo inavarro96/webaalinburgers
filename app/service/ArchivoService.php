@@ -13,13 +13,13 @@ class ArchivoService {
 
                 $info =  new SplFileInfo($imagen['name']);
 
-                $ruta_destino_archivo = "../../fotos/".$imagen.".".$info->getExtension();
+                $ruta_destino_archivo = "../../fotos/".$nameFile.".".$info->getExtension();
                 $imagen_ok = move_uploaded_file($imagen['tmp_name'], $ruta_destino_archivo);
                 if(!$imagen_ok) {
                     return 'No se logró subir el archivo';
                 }
                 
-                $producto = array('nombre'=>'', 'precio'=>'', 'descripcion'=>'','cantidad'=>'','imagen'=> $nameFile.".".$info->getExtension());
+                $producto = array('nombre'=>'', 'precio'=>'0', 'descripcion'=>'','cantidad'=>'0','imagen'=> $nameFile.".".$info->getExtension());
 
                 $productoService = new ProductoModel();
                 

@@ -57,7 +57,7 @@ app.factory("httpFactory", function($http, $q) {
             return $http({
 				url : URL + path,
 				method : "POST",
-				data, _data,
+				data: _data,
 				headers: {'Content-Type': undefined}
 			}).then(function(response) {
 				return  response.data

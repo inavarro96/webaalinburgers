@@ -41,7 +41,8 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
         console.log('dwqwd', $scope.producto.uploadFoto)
         archivoService.postFoto(fd).then(response => {
             console.log($scope.producto);
-            $scope.producto.id = response.id;
+            $scope.producto.id = response.data;
+            $scope.producto.uploadFoto = null;
             productoService.put($scope.producto).then(data => {
                 if(data.data) {
                     Swal.fire(
@@ -99,6 +100,8 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
                      timer: 1300
                     }
                    )
+                   $scope.producto= null;
+                   $scope.getProductos();
             } else {
                 Swal.fire(
                     {
@@ -132,6 +135,7 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
                      timer: 1300
                     }
                    )
+                   $scope.getProductos();
             } else {
                 Swal.fire(
                     {
