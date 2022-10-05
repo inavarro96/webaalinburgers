@@ -5,7 +5,7 @@ require_once "Connection.php";
 class PedidoModel extends Connection {
     
     public function getAll() {
-        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NOT NULL";
+        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL";
         $stm = Connection::connect()->prepare($query);
         $stm -> execute();
         $pedidos = $stm -> fetchAll(PDO::FETCH_ASSOC);
@@ -14,7 +14,9 @@ class PedidoModel extends Connection {
     }
 
     public function getProductosByIdPedido($idPedido) {
-        $query = "SELECT * FROM producto_pedido WHERE id_producto = :id_pedido";
+        $query = "select pp.cantidad, p.nombre, p.precio, p.imagen  from producto_pedido "
+        ."pp inner join producto p on p.id = pp.id_producto "
+        ."where pp.id_pedido = :id_pedido";
         $stm = Connection::connect()->prepare($query);
         $stm -> bindParam("id_pedido",$idPedido, PDO::PARAM_INT);
         $stm -> execute();
@@ -57,10 +59,42 @@ class PedidoModel extends Connection {
 
     }
 
-    public function delete($pedido) {
+    public function update($pedido) {
+        $stm = Connection::connect() -> prepare("UPDATE pedido SET visto = :visto, atendido = :atendido WHERE id = :id");
+        $stm -> bindParam("visto",$pedido['visto'], PDO::PARAM_STR);
+        $stm -> bindParam("atendido",$pedido['atendido'], PDO::PARAM_STR);
+        $stm -> bindParam("id",$pedido['id'], PDO::PARAM_INT);
+        
+        if($stm->execute()){
+            return "success";
+        }else{
+            $error = $stm->errorInfo();
+            return "error ".$error[2];
+        }
+    }
 
-        $result = null;
+    public function updateVisto($pedido) {
+        $stm = Connection::connect() -> prepare("UPDATE pedido SET visto = :visto WHERE id = :id");
+        $stm -> bindParam("visto",$pedido['visto'], PDO::PARAM_STR);
+        $stm -> bindParam("id",$pedido['id'], PDO::PARAM_INT);
+        
+        if($stm->execute()){
+            return "success";
+        }else{
+            $error = $stm->errorInfo();
+            return "error ".$error[2];
+        }
+    }
 
-        return $result;
+    public function delete($id) {
+
+        $stm = Connection::connect() -> prepare("UPDATE pedido SET fecha_eliminado = CURDATE() WHERE id = :id");
+
+        if($stm->execute()){
+            return "success";
+        }else{
+            $error = $stm->errorInfo();
+            return "error ".$error[2];
+        }
     }
 }

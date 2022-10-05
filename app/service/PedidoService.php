@@ -13,6 +13,8 @@ class PedidoService {
         $result = null;
         $model = new PedidoModel();
         $result = $model -> getProductosByIdPedido($idPedido);
+        $pedido = array('id' => $idPedido,'visto'=>1);
+        $model -> updateVisto($pedido);
         return $result;
     }
 
@@ -55,6 +57,19 @@ class PedidoService {
         }
         $result = $productos;
         
+        return $result;
+    }
+
+    public function put($pedido) {
+        $result = null;
+
+        if(isset($pedido) and !empty($pedido)) {
+            $model = new PedidoModel();
+            $result = $model -> update($pedido);
+        } else {
+            $result = 'No cuenta con ID para eliminar';
+        }
+
         return $result;
     }
 

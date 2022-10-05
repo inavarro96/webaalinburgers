@@ -386,7 +386,7 @@
                     for(let i in $scope.productos) {
                         
                         $scope.totales.total += $scope.productos[i].precio * $scope.productos[i].cantidad;
-                        $scope.totales.cantidad += 1;
+                        $scope.totales.cantidad += parseInt($scope.productos[i].cantidad);
                     }
                 };
 

@@ -11,60 +11,140 @@
                         <th scope="col">Dirección</th>
                         <th scope="col">Teléfono</th>
                         <th scope="col">Visto</th>
+                        <th scope="col">Atendido</th>
                         <th scope="col">Ver</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">Juan perez</th>
-                        <td>Av guerrero #56</td>
-                        <td>777777777777</td>
-                        <td><span class="text-success">Visto</span></td>
+                    <tr data-ng-repeat="pedido in pedidos">
+                        <th scope="row">{{pedido.nombre_completo}}</th>
+                        <td>{{pedido.direccion}}</td>
+                        <td>{{pedido.telefono}}</td>
+                        <td><span class=" {{pedido.visto==1?'text-success':'text-danger'}}">{{pedido.visto==1?'Visto':'Sin ver'}}</span></td>
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-outline-{{pedido.atendido==0?'warning':'success'}} btn-rounded"
+                                data-mdb-ripple-color="dark"
+                                ng-disabled="pedido.atendido==1"
+                                ng-click="atenderPedido(pedido)"
+                            >
+                            <i class="fas fa-check{{pedido.atendido==0?'':'-double'}}"></i> {{pedido.atendido==1?'Antendido':'Atender'}}
+                            </button>
+                        </td>
                         <td>
                             <button
                                 type="button"
                                 class="btn btn-outline-info btn-rounded"
                                 data-mdb-ripple-color="dark"
+                                data-mdb-toggle="modal" data-mdb-target="#modalDetallePedido"
+                                ng-click="verDetallePedido(pedido)"
                             >
                                 <i class="far fa-eye"></i> Ver
                             </button>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">Wilson Melson</th>
-                        <td>Av desconocido #45</td>
-
-                        <td>888888888</td>
-                        <td><strong class="text-danger">Sin ver</strong></td>
-                        <td>
-                            <button
-                                type="button"
-                                class="btn btn-outline-info btn-rounded"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i class="far fa-eye"></i> Ver
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Roberto Godinez</th>
-                        <td>Av del trabajo #455</td>
-
-                        <td>668888844</td>
-                        <td><span class="text-success">Visto</span></td>
-                        <td>
-                            <button
-                                type="button"
-                                class="btn btn-outline-info btn-rounded"
-                                data-mdb-ripple-color="dark"
-                            >
-                                <i class="far fa-eye"></i> Ver
-                            </button>
-                        </td>
-                    </tr>
+                  
                 </tbody>
             </table>
         </div>
     </div>
     <div class="card-footer text-muted"></div>
+
+    <div class="modal fade" id="modalDetallePedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Información Pedido</h5>
+            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row justify-content-center" novalidate name="formPedido" data-ng-submit="submitForm(formUsuario.$valid)" autocomplete="off">
+                    <div class="col-sm-12">
+                        <div class="form-outline mb-4">
+                            <input
+                                type="text"
+                                id="nombre_completo"
+                                class="form-control form-control-lg active"
+                                name="nombre_completo"
+                                ng-model="pedido.nombre_completo"
+                                readonly
+                            />
+                            <label class="form-label" for="nombre_completo">Nombre completo</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input
+                                type="text"
+                                id="direccion"
+                                class="form-control form-control-lg active"
+                                name="direccion"
+                                ng-model="pedido.direccion"
+                                disabled
+                            />
+                            <label class="form-label" for="direccion">Dirección</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input
+                                type="text"
+                                id="telefono"
+                                class="form-control form-control-lg active"
+                                ng-model="pedido.telefono"
+                                name="telefono"
+                                readonly
+                            />
+                            <label class="form-label" for="telefono">Telefono</label>
+                        </div>
+                    </div>
+                    
+                </form>
+
+                <table class="table align-middle mb-0 bg-white">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>SubTotal</th>
+                        </tr>
+                    </thead>
+                    <tr data-ng-repeat="producto in productosPedido">
+                        <td >
+                            <div class="d-flex align-items-center">
+                                <img
+                                    src="{{producto.imagen}}"
+                                    alt="Sin imagen"
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                />
+                                <div class="ms-3">
+                                    <p class="fw-bold mb-1">{{producto.nombre}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">{{producto.precio}}</p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">{{producto.cantidad}}</p>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">{{producto.precio * producto.cantidad}}</p>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><strong>Total</strong></td>
+                        <td>{{totales.cantidad}}</td>
+                        <td>{{totales.total}}</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>

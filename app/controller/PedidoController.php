@@ -21,8 +21,11 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
         $response['data'] = $service -> getProductos();
     }
 
+    if($_GET['action'] == 'put') {
+        $response['data'] = $service -> put($_POST);
+    }
     if($_GET['action'] == 'delete') {
-        $response['data'] = $service -> post($_POST['id_pedido']);
+        $response['data'] = $service -> delete($_POST['id_pedido']);
     }
 
     if($_GET['action'] == 'getAll') {
@@ -30,7 +33,7 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     }
 
     if($_GET['action'] == 'getProductosByIdPedido') {
-        $response['data'] = $service -> getProductosByIdPedido($_POST['id_pedido']);
+        $response['data'] = $service -> getProductosByIdPedido($_GET['id_pedido']);
     }
 } else {
     $response['state'] = 'Acción no encontrada';
