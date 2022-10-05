@@ -156,13 +156,8 @@ session_start();
                                 data-mdb-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                <img
-                                    src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
-                                    class="rounded-circle"
-                                    height="22"
-                                    alt=""
-                                    loading="lazy"
-                                />
+                            <i class="fas fa-user-alt"></i>
+
                             </a>
                             <ul
                                 class="dropdown-menu dropdown-menu-end"
@@ -170,12 +165,7 @@ session_start();
                             >
                                 <li>
                                     <a class="dropdown-item" href="#"
-                                        >Configuracion</a
-                                    >
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >Cerrar Sesión</a
+                                        ><i class="fas fa-outdent"></i> Cerrar Sesión</a
                                     >
                                 </li>
                             </ul>
