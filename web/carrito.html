@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="appCarrito">
     <head>
         <meta charset="UTF-8" />
         <meta
@@ -23,7 +23,7 @@
         <!-- Custom styles -->
         <link rel="stylesheet" href="css/style.css" />
     </head>
-    <body>
+    <body data-ng-controller="carritoCtrl">
         <!--Main Navigation-->
         <header>
             <style>
@@ -142,12 +142,12 @@
                 <div class="col-md-9">
                     <ul class="list-group list-group-light list-group-small">
                         <li class="list-group-item">
-                            <div class="row">
+                            <div class="row" data-ng-repeat="producto in productos">
                                 <div class="col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <img
-                                                src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp"
+                                                src="{{producto.imagen}}"
                                                 class="img-fluid hover-shadow p-3"
                                                 alt="Nombre del producto"
                                             />
@@ -156,11 +156,11 @@
                                             <p class="text-center">
                                                 <span class="fs-5"
                                                     ><strong
-                                                        >Nombre producto</strong
+                                                        >{{producto.productoNombre}}</strong
                                                     ></span
                                                 >
                                                 <br />
-                                                <span>$89.22</span>
+                                                <span>${{producto.precio}}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -172,6 +172,7 @@
                                                 type="button"
                                                 class="btn btn-outline-primary btn-rounded"
                                                 data-mdb-ripple-color="dark"
+                                                data-ng-click="restarProductos(producto)"
                                             >
                                                 <i class="fas fa-minus"></i>
                                             </button>
@@ -180,8 +181,10 @@
                                             <input
                                                 type="number"
                                                 id="numCantidad"
-                                                class="form-control"
+                                                class="form-control active"
                                                 aria-describedby="cantidad"
+                                                readonly
+                                                value="{{producto.cantidad}}"
                                             />
                                             <label
                                                 class="form-label"
@@ -194,6 +197,7 @@
                                                 type="button"
                                                 class="btn btn-outline-primary btn-rounded"
                                                 data-mdb-ripple-color="dark"
+                                                data-ng-click="sumarProductos(producto)"
                                             >
                                                 <i class="fas fa-plus"></i>
                                             </button>
@@ -201,7 +205,7 @@
                                     </div>
                                     <div class="row">
                                         <span class="mt-3 col-12 text-center"
-                                            >Subtotal: $58</span
+                                            >Subtotal: ${{producto.precio * producto.cantidad}}</span
                                         >
                                     </div>
                                 </div>
@@ -218,13 +222,13 @@
                             class="list-group-item d-flex justify-content-between"
                         >
                             <span>Productos</span>
-                            <span>22</span>
+                            <span>{{totales.cantidad}}</span>
                         </li>
                         <li
                             class="list-group-item d-flex justify-content-between"
                         >
-                            <span>Precio</span>
-                            <span>$16</span>
+                            <span>Total</span>
+                            <span>${{totales.total}}</span>
                         </li>
                         <li
                             class="list-group-item d-flex justify-content-center"
@@ -233,6 +237,7 @@
                                 type="button"
                                 class="btn btn-outline-primary btn-rounded"
                                 data-mdb-ripple-color="dark"
+                                data-mdb-toggle="modal" data-mdb-target="#modalTerminarPedido"
                             >
                                 Crear pedido
                             </button>
@@ -241,7 +246,63 @@
                 </div>
             </div>
         </main>
+        <!-- Modal confirmar pedido-->
+        <div class="modal fade" id="modalTerminarPedido" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header mt-4">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar Pedido</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row justify-content-center" novalidate name="formPedido" data-ng-submit="submitForm(formUsuario.$valid)" autocomplete="off">
+                        <div class="col-sm-12">
+                            <div class="form-outline mb-4">
+                                <input
+                                    type="text"
+                                    id="nombre_completo"
+                                    class="form-control form-control-lg"
+                                    name="nombre_completo"
+                                    ng-model="pedido.nombre_completo"
+                                    required
+                                />
+                                <label class="form-label" for="nombre_completo">Nombre completo</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input
+                                    type="text"
+                                    id="direccion"
+                                    class="form-control form-control-lg"
+                                    name="direccion"
+                                    ng-model="pedido.direccion"
+                                    required
+                                />
+                                <label class="form-label" for="direccion">Dirección</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input
+                                    type="text"
+                                    id="telefono"
+                                    class="form-control form-control-lg"
+                                    ng-model="pedido.telefono"
+                                    name="telefono"
+                                    required
+                                />
+                                <label class="form-label" for="telefono">Telefono</label>
+                            </div>
+                        </div>
+                        
+                    </form>
 
+
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-ng-click="terminarPedido()">Terminar pedido</button>
+                </div>
+            </div>
+            </div>
+        </div>
         <footer class="bg-light text-lg-start">
             <hr class="m-0" />
 
@@ -256,9 +317,83 @@
             <!-- Copyright -->
         </footer>
         <!--Footer-->
+         <!-- JQuery -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
         <!-- MDB -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
         <!-- Custom scripts -->
         <script type="text/javascript" src="js/script.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            const app = angular.module('appCarrito',[]);
+            app.controller('carritoCtrl', function($scope, $http) {
+                $scope.productos = [];
+                $scope.pedido = {};
+                $scope.totales = {};
+
+                $scope.getProductosPedido = () => {
+                    $http({
+                        url: "/webaalinburgers/app/controller/PedidoController.php?action=getProductos",
+                        method: "GET"
+                    }).then(function(response) {
+                        console.log('Productos',response.data.data)
+                        $scope.productos = response.data.data;
+                        $scope.sumarProductosTotal();
+                    }, function(response) {
+                        console.log(response);
+                        
+                    });
+                };
+                $scope.terminarPedido = () => {
+                    $scope.pedido.productos = $scope.productos;
+                    console.log('PEDIDO', $scope.pedido)
+                    $http({
+                        url : '/webaalinburgers/app/controller/PedidoController.php?action=post',
+                        method : "POST",
+                        data :  $.param( $scope.pedido),
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).then(function(response) {
+                        Swal.fire(
+                        {
+                         icon: 'success',
+                         title: 'Pedido realizado',
+                         showConfirmButton: false,
+                         timer: 1300
+                        }
+                       )
+                    }, function(response) {
+                        console.error(response);
+
+                    });
+                };
+
+                $scope.sumarProductos = producto => {
+                    producto.cantidad =  parseInt(producto.cantidad) +1;
+                    $scope.sumarProductosTotal();
+                };
+                 
+                $scope.restarProductos = producto => {
+                    producto.cantidad =  parseInt(producto.cantidad) -1;
+                    $scope.sumarProductosTotal();
+                };
+
+                $scope.sumarProductosTotal = () => {
+                    $scope.totales.total = 0;
+                    $scope.totales.cantidad = 0;
+
+                    for(let i in $scope.productos) {
+                        
+                        $scope.totales.total += $scope.productos[i].precio * $scope.productos[i].cantidad;
+                        $scope.totales.cantidad += 1;
+                    }
+                };
+
+                angular.element(document).ready(function() {
+                    $scope.getProductosPedido();
+                 });
+            });
+        </script>
     </body>
 </html>

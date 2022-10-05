@@ -281,18 +281,7 @@
                     });
                 };
 
-                $scope.getProductosPedido = () => {
-                    $http({
-                        url: "/webaalinburgers/app/controller/PedidoController.php?action=getProductos",
-                        method: "GET"
-                    }).then(function(response) {
-                        console.log('Productos',response.data.data)
-                        $scope.productos = response.data.data;
-                    }, function(response) {
-                        console.log(response);
-                        
-                    });
-                };
+               
 
                 $scope.seleccionarProducto = producto => {
                     $scope.producto = producto;
@@ -301,13 +290,15 @@
 
                 $scope.agregarProducto = () => {
                     $scope.pedido.id_producto = $scope.producto.id;
+                    $scope.pedido.nombreProducto = $scope.producto.nombre;
+                    $scope.pedido.imagen = $scope.producto.imagen;
+                    $scope.pedido.precio = $scope.producto.precio;
                     $http({
                         url : '/webaalinburgers/app/controller/PedidoController.php?action=addProducto',
                         method : "POST",
                         data :  $.param( $scope.pedido),
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).then(function(response) {
-                        $scope.getProductosPedido();
                         Swal.fire(
                         {
                          icon: 'success',
@@ -324,7 +315,6 @@
 
                 angular.element(document).ready(function() {
                     $scope.getProductos();
-                    $scope.getProductosPedido();
                  });
             });
         </script>
