@@ -80,7 +80,7 @@
                                 >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Nosotros</a>
+                                <a class="nav-link" href="misionVision.html">Nosotros</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="menu.html">Menú</a>
@@ -92,15 +92,14 @@
                             <li class="nav-item me-3 me-lg-0">
                                 <a
                                     class="nav-link"
-                                    href="#"
+                                    href="https://www.facebook.com/profile.php?id=100063828090806"
                                     rel="nofollow"
-                                    target="_blank"
                                     title="Facebook"
                                 >
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
-                            <li class="nav-item me-3 me-lg-0">
+                            <!-- <li class="nav-item me-3 me-lg-0">
                                 <a
                                     class="nav-link"
                                     href="#"
@@ -110,7 +109,7 @@
                                 >
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item me-3 me-lg-0">
                                 <a
                                     class="nav-link"
@@ -138,7 +137,19 @@
         </header>
         <!--Main Navigation-->
         <main class="container mt-5 mb-5">
-            <div class="row">
+            <div ng-if="productosArrayLength == 0">
+                <div class="card text-body bg-info mb-3" >
+                    <div class="card-header">Información</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Sin productos agregados</h5>
+                      <p class="card-text">
+                        Todavía no ha seleccionado y agregado productos al carrito, cuando esten agregados se 
+                        van a mostrar en esta sección
+                      </p>
+                    </div>
+                  </div>
+            </div>
+            <div class="row" ng-if="productosArrayLength > 0">
                 <div class="col-md-9">
                     <ul class="list-group list-group-light list-group-small">
                         <li class="list-group-item">
@@ -147,7 +158,7 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <img
-                                                src="{{producto.imagen}}"
+                                                src="../fotos/{{producto.imagen}}"
                                                 class="img-fluid hover-shadow p-3"
                                                 alt="Nombre del producto"
                                             />
@@ -298,7 +309,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" data-ng-click="terminarPedido()">Terminar pedido</button>
+                <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" data-ng-click="terminarPedido()">Terminar pedido</button>
                 </div>
             </div>
             </div>
@@ -328,7 +339,7 @@
 
         <script>
             const app = angular.module('appCarrito',[]);
-            app.controller('carritoCtrl', function($scope, $http) {
+            app.controller('carritoCtrl', function($scope, $http, $timeout) {
                 $scope.productos = [];
                 $scope.pedido = {};
                 $scope.totales = {};
@@ -341,6 +352,7 @@
                         console.log('Productos',response.data.data)
                         $scope.productos = response.data.data;
                         $scope.sumarProductosTotal();
+                        $scope.productosArrayLength = Object.keys($scope.productos).length;
                     }, function(response) {
                         console.log(response);
                         
@@ -348,7 +360,7 @@
                 };
                 $scope.terminarPedido = () => {
                     $scope.pedido.productos = $scope.productos;
-                    console.log('PEDIDO', $scope.pedido)
+                    
                     $http({
                         url : '/webaalinburgers/app/controller/PedidoController.php?action=post',
                         method : "POST",
@@ -363,6 +375,11 @@
                          timer: 1300
                         }
                        )
+                        
+                    $timeout(function() {
+                        window.location.href = "index.html";
+                    },1400);
+                       $scope.pedido = null;
                     }, function(response) {
                         console.error(response);
 

@@ -80,7 +80,7 @@
                                 >
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Nosotros</a>
+                                <a class="nav-link" href="misionVision.html">Nosotros</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="menu.html">Menú</a>
@@ -92,15 +92,14 @@
                             <li class="nav-item me-3 me-lg-0">
                                 <a
                                     class="nav-link"
-                                    href="#"
+                                    href="https://www.facebook.com/profile.php?id=100063828090806"
                                     rel="nofollow"
-                                    target="_blank"
                                     title="Facebook"
                                 >
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
-                            <li class="nav-item me-3 me-lg-0">
+                            <!-- <li class="nav-item me-3 me-lg-0">
                                 <a
                                     class="nav-link"
                                     href="#"
@@ -110,7 +109,7 @@
                                 >
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item me-3 me-lg-0">
                                 <a
                                     class="nav-link"
@@ -143,7 +142,7 @@
                 <div class="col-6 col-md-4 col-sm-12 mb-4" data-ng-repeat="producto in productos">
                     <div class="card">
                         <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                          <img src="{{producto.imagen}}" alt="no_encontrado" class="img-fluid" />
+                          <img src="../fotos/{{producto.imagen}}" alt="no_encontrado" class="img-fluid" />
                           <a href="#!">
                             <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                           </a>
@@ -193,7 +192,7 @@
         <div class="modal-body">
             <div class="card">
                 <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                  <img src="{{producto.imagen}}" alt="no_encontrado" class="img-fluid" />
+                  <img src="../fotos/{{producto.imagen}}" alt="no_encontrado" class="img-fluid" />
                   <a href="#!">
                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                   </a>
@@ -233,7 +232,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" ng-click="agregarProducto()">Agregar</button>
+          <button type="button" class="btn btn-primary" data-mdb-dismiss="modal" ng-click="agregarProducto()">Agregar</button>
         </div>
       </div>
     </div>

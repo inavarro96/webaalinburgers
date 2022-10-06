@@ -23,6 +23,10 @@ class PedidoService {
         if(isset($pedido['nombre_completo']) and !empty($pedido['nombre_completo'])) {
             $model = new PedidoModel();
             $result = $model -> insert($pedido);
+            if($result == "success") {
+                session_start();
+                session_destroy();
+            }
         }else {
             $result = 'No ha ingresado por completo los datos';
         }
