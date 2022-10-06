@@ -33,7 +33,7 @@ session_start();
 
     <body>
         <!--Main Navigation-->
-        <header>
+        <header ng-controller="headerCtrl">
             <!-- Sidebar -->
             <nav
                 id="sidebarMenu"
@@ -49,7 +49,7 @@ session_start();
                             <i class="fas fa-tachometer-alt fa-fw me-3"></i
                             ><span>Dashboard</span>
                         </a> -->
-                        <a
+                        <a ng-if="user.perfil == 1"
                             href="#!/productos"
                             class="list-group-item list-group-item-action py-2 ripple active"
                         >
@@ -64,7 +64,7 @@ session_start();
                         >
 
                         <a
-                            href="#!/usuarios"
+                            href="#!/usuarios" ng-if="user.perfil == 1"
                             class="list-group-item list-group-item-action py-2 ripple"
                             ><i class="fas fa-users fa-fw me-3"></i
                             ><span>Usuarios</span></a
@@ -95,7 +95,7 @@ session_start();
                     </button>
 
                     <!-- Brand -->
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="">
                         <!-- <img
                             src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
                             height="25"
@@ -157,14 +157,14 @@ session_start();
                                 aria-expanded="false"
                             >
                             <i class="fas fa-user-alt"></i>
-
+                            {{user.nombre+' '+user.apellidos}}
                             </a>
                             <ul
                                 class="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="navbarDropdownMenuLink"
                             >
                                 <li>
-                                    <a class="dropdown-item" href="#"
+                                    <a class="dropdown-item" href="" ng-click="destroy()"
                                         ><i class="fas fa-outdent"></i> Cerrar Sesión</a
                                     >
                                 </li>
@@ -219,7 +219,9 @@ session_start();
         <script src="app/service/usuarioService.js"></script>
         <script src="app/service/pedidoService.js"></script>
         <script src="app/service/archivoService.js"></script>
+        <script src="app/service/sesionService.js"></script>
         <!-- Angular controllers -->
+        <script src="app/controllers/headerCtrl.js"></script>
         <script src="app/controllers/mainCtrl.js"></script>
         <script src="app/controllers/productoCtrl.js"></script>
         <script src="app/controllers/usuarioCtrl.js"></script>

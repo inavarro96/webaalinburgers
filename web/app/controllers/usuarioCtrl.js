@@ -108,7 +108,7 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
     }
 
     $scope.eliminar = usuario => {
-        usuarioService.post(usuario).then( data => {
+        usuarioService.delete(usuario).then( data => {
             if(data.data) {
                 Swal.fire(
                     {

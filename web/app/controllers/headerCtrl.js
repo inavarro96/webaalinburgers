@@ -4,6 +4,8 @@ app.controller('headerCtrl', function($scope, sesionService, sessionFactory) {
         sessionFactory.setList('user',session.data);
         $scope.user = sessionFactory.getList('user');
 
+        console.log('INFORMACION uSUARIO', session.data);
+
     }, error => {
         cconsole.log('Error al obtener las sesiones', error);
     });
@@ -15,5 +17,6 @@ app.controller('headerCtrl', function($scope, sesionService, sessionFactory) {
         }, error => {
             console.log('Error al cerrar la sesión',error);
         })
-    }
+    };
+
 });

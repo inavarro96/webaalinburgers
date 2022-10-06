@@ -26,7 +26,7 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
      }
 
      if($_GET['action'] === 'put') {
-        $response['data'] = $service-> put($_POST);
+        $response['data'] = $service-> update($_POST);
      }
 
      if($_GET['action'] === 'delete') {

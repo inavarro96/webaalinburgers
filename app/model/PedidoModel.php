@@ -42,7 +42,7 @@ class PedidoModel extends Connection {
         $idPedido = $stm2->fetch(PDO::FETCH_ASSOC);
         $res = null;
         foreach($pedido['productos'] as  &$producto) {
-            print_r("pedido ".$idPedido['id']);
+           
             $stm3 =  Connection::connect() -> prepare("INSERT INTO producto_pedido(id_pedido, id_producto, cantidad)
             VALUES (:id_pedido, :id_producto, :cantidad)");
             $stm3 -> bindParam("id_pedido",$idPedido['id'], PDO::PARAM_STR);

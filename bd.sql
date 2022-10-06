@@ -51,3 +51,11 @@ create table producto_pedido(
 	FOREIGN  key (id_pedido) references pedido(id),
 	FOREIGN  key (id_producto) references producto(id)
 );
+
+create table notificacion (
+	id int not null auto_increment primary key,
+	asunto varchar(100),
+	descripcion text,
+	visto TINYINT(1) default 0,
+	fecha_alta TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

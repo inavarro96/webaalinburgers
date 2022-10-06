@@ -4,7 +4,7 @@ angular.module('app').service('sesionService', function(httpFactory, $q) {
     const URL = 'SesionController.php?action=';
 
     SELF.get = () => {
-        return ((resolve, reject) => {
+        return $q((resolve, reject) => {
             httpFactory.get(`${URL}get`).then(response => {
                 resolve(response);
             }, error => {
@@ -13,8 +13,8 @@ angular.module('app').service('sesionService', function(httpFactory, $q) {
         });
     };
 
-    SELF.get = () => {
-        return ((resolve, reject) => {
+    SELF.destroy = () => {
+        return $q((resolve, reject) => {
             httpFactory.get(`${URL}destroy`).then(response => {
                 resolve(response);
             }, error => {

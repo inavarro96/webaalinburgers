@@ -18,5 +18,5 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
         templateUrl:"/webaalinburgers/web/views/pedido.html",
         controller:"pedidoCtrl"
     })
-    .otherwise({directTo: '/productos'})
+    .otherwise({directTo: '/pedidos'})
 }]);
