@@ -1,7 +1,7 @@
 <?php
 
 require_once "Connection.php";
-
+require_once "ProductoModel.php";
 class PedidoModel extends Connection {
     
     public function getAll() {
@@ -41,6 +41,7 @@ class PedidoModel extends Connection {
         $stm2 -> execute();
         $idPedido = $stm2->fetch(PDO::FETCH_ASSOC);
         $res = null;
+        $productoModel = new ProductoModel();
         foreach($pedido['productos'] as  &$producto) {
            
             $stm3 =  Connection::connect() -> prepare("INSERT INTO producto_pedido(id_pedido, id_producto, cantidad)
@@ -49,6 +50,10 @@ class PedidoModel extends Connection {
             $stm3 -> bindParam("id_producto",$producto['id_producto'], PDO::PARAM_STR);
             $stm3 -> bindParam("cantidad",$producto['cantidad'], PDO::PARAM_STR);
             $res =  $stm3 -> execute();
+            
+            $productoBase = $productoModel -> getAllById($producto['id_producto']);
+            $productoBase['cantidad'] = $productoBase['cantidad'] - $producto['cantidad'];
+            $productoModel -> update($productoBase);
         }
         if($res){
             return "success";

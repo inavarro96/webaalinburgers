@@ -1,6 +1,7 @@
 <?php
 
 require_once "../model/PedidoModel.php";
+require_once "../model/ProductoModel.php";
 require_once "../service/PedidoService.php";
 
 header('Content-Type: application/json');

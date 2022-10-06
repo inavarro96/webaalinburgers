@@ -26,7 +26,9 @@ class PedidoService {
             if($result == "success") {
                 session_start();
                 session_destroy();
+                
             }
+
         }else {
             $result = 'No ha ingresado por completo los datos';
         }

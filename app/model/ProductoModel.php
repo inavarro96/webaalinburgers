@@ -68,7 +68,7 @@ class ProductoModel extends Connection {
     }
 
     public function getAllById($id) {
-        $query = "SELECT * FROM producto WHERE fecha_baja IS NULL AND id = $id";
+        $query = "SELECT * FROM producto WHERE fecha_baja IS NULL AND id = :id";
         $stm = Connection::connect()->prepare($query);
         $stm -> bindParam("id", $id, PDO::PARAM_INT);
         
