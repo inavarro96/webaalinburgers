@@ -47,6 +47,15 @@ class ProductoService {
         return $result;
     }
 
+    public function getStock() {
+        $result = null;
+        $mvc = new ProductoModel();
+        $result = $mvc -> getAllStock();
+
+        return $result;
+    }
+
+
     public function getById($id) {
         $resut = null;
 

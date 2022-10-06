@@ -269,7 +269,7 @@
 
                 $scope.getProductos = () => {
                     $http({
-                        url: "/webaalinburgers/app/controller/ProductoController.php?action=get",
+                        url: "/webaalinburgers/app/controller/ProductoController.php?action=getStock",
                         method: "GET"
                     }).then(function(response) {
                         console.log(response.data.data)
@@ -292,6 +292,21 @@
                     $scope.pedido.nombreProducto = $scope.producto.nombre;
                     $scope.pedido.imagen = $scope.producto.imagen;
                     $scope.pedido.precio = $scope.producto.precio;
+                    if($scope.pedido.cantidad > $scope.producto.cantidad) {
+                        Swal.fire(
+                        {
+                         icon: 'warning',
+                         title: 'La cantidad es mayor a los que se encuentra registrada',
+                         showConfirmButton: false,
+                         timer: 1800
+                        }
+                       )
+                    } else {
+                        $scope.agregarProductoPedido();
+                    }
+                };
+
+                $scope.agregarProductoPedido = () => {
                     $http({
                         url : '/webaalinburgers/app/controller/PedidoController.php?action=addProducto',
                         method : "POST",
@@ -310,7 +325,7 @@
                         console.error(response);
 
                     });
-                };
+                }
 
                 angular.element(document).ready(function() {
                     $scope.getProductos();

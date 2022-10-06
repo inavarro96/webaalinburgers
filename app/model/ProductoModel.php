@@ -23,9 +23,10 @@ class ProductoModel extends Connection {
     }
 
     public function update($producto) {
-        $stm = Connection::connect()->prepare("UPDATE producto SET nombre = :nombre, precio = :precio, descripcion = :descripcion, imagen = :imagen WHERE id = :id");
+        $stm = Connection::connect()->prepare("UPDATE producto SET nombre = :nombre, precio = :precio, cantidad = :cantidad, descripcion = :descripcion, imagen = :imagen WHERE id = :id");
         $stm -> bindParam("nombre", $producto['nombre'], PDO::PARAM_STR);
         $stm -> bindParam("precio", $producto['precio'], PDO::PARAM_INT);
+        $stm -> bindParam("cantidad", $producto['cantidad'], PDO::PARAM_STR);
         $stm -> bindParam("descripcion", $producto['descripcion'], PDO::PARAM_STR);
         $stm -> bindParam("imagen", $producto['imagen'], PDO::PARAM_STR);
         $stm -> bindParam("id", $producto['id'], PDO::PARAM_INT);
@@ -52,6 +53,14 @@ class ProductoModel extends Connection {
 
     public function getAll() {
         $query = "SELECT * FROM producto WHERE fecha_baja IS NULL";
+        $stm = Connection::connect()->prepare($query);
+
+        $stm ->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllStock() {
+        $query = "SELECT * FROM producto WHERE fecha_baja IS NULL AND cantidad > 0";
         $stm = Connection::connect()->prepare($query);
 
         $stm ->execute();

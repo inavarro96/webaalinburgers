@@ -14,6 +14,9 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     if($_GET['action'] === 'get') {
         $response['data'] = $service -> getAll();
     }
+    if($_GET['action'] === 'getStock') {
+        $response['data'] = $service -> getStock();
+    }
 
     if($_GET['action'] === 'getById') {
         $response['data'] = $service -> getById($_GET['id']);
