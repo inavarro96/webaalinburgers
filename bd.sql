@@ -56,6 +56,14 @@ create table notificacion (
 	id int not null auto_increment primary key,
 	asunto varchar(100),
 	descripcion text,
-	visto TINYINT(1) default 0,
 	fecha_alta TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+create table notificacion_usuario(
+	id int not null primary key auto_increment,
+	fecha_visto DATE default null,
+	id_notificacion int not null,
+	id_usuario int not null,
+	FOREIGN  key (id_notificacion) references notificacion(id),
+	FOREIGN  key (id_usuario) references usuario(id)
 );

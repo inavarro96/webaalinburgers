@@ -119,30 +119,22 @@ session_start();
                                 aria-expanded="false"
                             >
                                 <i class="fas fa-bell"></i>
-                                <span
+                                <span ng-if="notificacionesLength"
                                     class="badge rounded-pill badge-notification bg-danger"
-                                    >1</span
+                                    >{{notificacionesLength}}</span
                                 >
                             </a>
                             <ul
                                 class="dropdown-menu dropdown-menu-end"
                                 aria-labelledby="navbarDropdownMenuLink"
                             >
-                                <li>
+                                <li ng-repeat="notificacion in notificaciones">
                                     <a class="dropdown-item" href="#"
-                                        >Some news</a
+                                        >{{notificacion.asunto}}</a
                                     >
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >Another news</a
-                                    >
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#"
-                                        >Something else</a
-                                    >
-                                </li>
+                                
+                               
                             </ul>
                         </li>
 
@@ -220,13 +212,13 @@ session_start();
         <script src="app/service/pedidoService.js"></script>
         <script src="app/service/archivoService.js"></script>
         <script src="app/service/sesionService.js"></script>
+        <script src="app/service/notificacionService.js"></script>
+        
         <!-- Angular controllers -->
         <script src="app/controllers/headerCtrl.js"></script>
         <script src="app/controllers/mainCtrl.js"></script>
         <script src="app/controllers/productoCtrl.js"></script>
         <script src="app/controllers/usuarioCtrl.js"></script>
-        <script src="app/controllers/pedidoCtrl.js"></script>
-        <!-- Angular Services -->
-        
+        <script src="app/controllers/pedidoCtrl.js"></script>  
     </body>
 </html>
