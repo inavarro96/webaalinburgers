@@ -26,7 +26,8 @@ class PedidoService {
             if($result == "success") {
                 session_start();
                 session_destroy();
-                
+                $notificacionService = new NotificacionService();
+                $notificacionService ->crear("Nuevo pedido","Se ha creado un nuevo pedido");
             }
 
         }else {

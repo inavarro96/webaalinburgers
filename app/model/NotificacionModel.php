@@ -15,7 +15,7 @@ require_once "Connection.php";
 class NotificacionModel extends Connection {
 
     public function insert($notificacion) {
-        $stm = Connection::connect() -> prepare("INSERT INTO notificacion(asunto, fecha_creado, descripcion) VALUES(:asunto, :fecha_creado, :descripcion)");
+        $stm = Connection::connect() -> prepare("INSERT INTO notificacion(asunto, descripcion) VALUES(:asunto, :descripcion)");
 
         $stm -> bindParam("asunto", $notificacion['asunto']);
         $stm -> bindParam("descripcion", $notificacion['descripcion']);
@@ -33,7 +33,7 @@ class NotificacionModel extends Connection {
 
     public function insertNotificacionUsuarios($idNotificacion, $usuarios) {
         foreach($usuarios as &$usuario) {
-            $stm = Connection::connect() -> prepare("INSERT INTO notificacion_usuario(id_notificacion, id_usuario) VALUES (:idNotificacion, idUsuario)");
+            $stm = Connection::connect() -> prepare("INSERT INTO notificacion_usuario(id_notificacion, id_usuario) VALUES (:idNotificacion, :idUsuario)");
             $stm -> bindParam("idNotificacion",$idNotificacion, PDO::PARAM_STR);
             $stm -> bindParam("idUsuario",$usuario['id'], PDO::PARAM_STR);
 

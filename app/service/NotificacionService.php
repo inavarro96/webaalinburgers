@@ -15,7 +15,7 @@ class NotificacionService {
         $mvcUser = new UsuarioModel();
         $usuarios = $mvcUser -> getAll();
 
-        $mvc ->insertNotificacionUsuarios($idN['id'], $usuarios);
+        $mvc ->insertNotificacionUsuarios($idN, $usuarios);
 
         return true;
     }
