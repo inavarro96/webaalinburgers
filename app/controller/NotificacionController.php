@@ -3,6 +3,7 @@
 require_once "../model/NotificacionModel.php";
 require_once "../service/NotificacionService.php";
 require_once "../model/UserModel.php";
+require_once "../utils/Message.php";
 
 header('Content-Type: application/json');
 $response = array('state'=>'','data' => '');

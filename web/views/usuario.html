@@ -16,6 +16,7 @@
             <thead class="bg-light">
                 <tr>
                     <th>Nombre</th>
+                    <th>Telefono</th>
                     <th>Usuarios</th>
                     <th>Privilegios</th>
                     <th>Creado</th>
@@ -27,6 +28,9 @@
                 <tr data-ng-repeat="usuario in usuarios">
                     <td>
                         <p class="fw-bold mb-1">{{usuario.nombre+' '+usuario.apellidos}}</p>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">{{usuario.telefono}}</p>
                     </td>
                     <td>
                         <p class="fw-normal mb-1">{{usuario.usuario}}</p>
@@ -100,6 +104,17 @@
                         required
                     />
                     <label class="form-label" for="apellidos">Apellidos</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input
+                        type="text"
+                        id="telefono"
+                        class="form-control form-control-lg"
+                        name="telefono"
+                        ng-model="usuario.telefono"
+                        required
+                    />
+                    <label class="form-label" for="telefono">Telefono</label>
                 </div>
                 <div class="form-outline mb-4">
                     <input

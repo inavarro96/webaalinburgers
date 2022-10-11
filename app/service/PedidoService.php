@@ -27,7 +27,7 @@ class PedidoService {
                 session_start();
                 session_destroy();
                 $notificacionService = new NotificacionService();
-                $notificacionService ->crear("Nuevo pedido","Se ha creado un nuevo pedido");
+                $notificacionService ->crear("Nuevo pedido","Se ha creado un nuevo pedido de ".$pedido['nombre_completo'].", esta en espera de ser atendido");
             }
 
         }else {

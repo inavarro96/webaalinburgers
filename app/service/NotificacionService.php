@@ -17,6 +17,13 @@ class NotificacionService {
 
         $mvc ->insertNotificacionUsuarios($idN, $usuarios);
 
+        foreach($usuarios as &$usuario) {
+                $message = new MessageUtils();
+            if(isset($usuario['telefono']) and !empty($usuario['telefono'])) {
+                $message ->send($usuario['telefono'],$descripcion);
+            }
+            
+        }
         return true;
     }
 

@@ -13,6 +13,7 @@ class UsuarioModel extends Connection {
 
         $passwordEncrypt = password_hash($user['password'], PASSWORD_BCRYPT,  $options);
         $stm -> bindParam("usuario",$user['usuario'], PDO::PARAM_STR);
+        $stm -> bindParam("telefono",$user['telefono'], PDO::PARAM_STR);
         $stm -> bindParam("password",$passwordEncrypt, PDO::PARAM_STR);
         $stm -> bindParam("nombre",$user['nombre'], PDO::PARAM_STR);
         $stm -> bindParam("apellidos",$user['apellidos'], PDO::PARAM_STR);
@@ -27,9 +28,10 @@ class UsuarioModel extends Connection {
     }
 
     public function update($user) {
-        $stm = Connection::connect() -> prepare("UPDATE usuario SET usuario = :usuario, nombre = :nombre, apellido = :apellido WHERE id = :id");
+        $stm = Connection::connect() -> prepare("UPDATE usuario SET usuario = :usuario, nombre = :nombre, apellido = :apellido, telefono = :telefono WHERE id = :id");
 
         $stm -> bindParam("usuario",$user['usuario'], PDO::PARAM_STR);
+        $stm -> bindParam("telefono",$user['telefono'], PDO::PARAM_STR);
         $stm -> bindParam("nombre",$user['nombre'], PDO::PARAM_STR);
         $stm -> bindParam("apellidos",$user['apellidos'], PDO::PARAM_STR);
         $stm -> bindParam("id",$user['id'], PDO::PARAM_STR);
