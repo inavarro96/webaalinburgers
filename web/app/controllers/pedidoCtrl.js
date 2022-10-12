@@ -3,6 +3,7 @@ app.controller("pedidoCtrl", function($scope, pedidoService) {
     $scope.pedido = {};
     $scope.productosPedido = [];
     $scope.totales = {};
+    $scope.idsSelected = [];
     $scope.getPedidos = () => {
         pedidoService.getAll().then(response => {
             $scope.pedidos = response.data;
@@ -34,6 +35,16 @@ app.controller("pedidoCtrl", function($scope, pedidoService) {
         })
     };
 
+    $scope.selectedPedido =(idPedido, statusCheck) => {
+        statusCheck = !statusCheck;
+        if(statusCheck) {
+            $scope.idsSelected.push(idPedido);
+        } else {
+            $scope.idsSelected = $scope.idsSelected.filter(id => id != idPedido);
+        }
+
+    }
+
     $scope.getProductosByIdPedido = idPedido => {
         pedidoService.getProductosByIdPedido(idPedido).then(response => {
             $scope.productosPedido = response.data;
@@ -54,6 +65,60 @@ app.controller("pedidoCtrl", function($scope, pedidoService) {
             $scope.totales.cantidad += parseInt($scope.productosPedido[i].cantidad);
         }
     };
+
+    $scope.confirmDeleteSelected = () => {
+        Swal.fire({
+            title: '¿Esta seguro que desea borrar los pedidos',
+            text: 'Seleccionados?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si',
+            cancelButtonText: 'No'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $scope.eliminarSelected();
+            }
+          })
+    }
+
+    $scope.eliminarSelected = () => {
+
+        idString = {ids: $scope.idsSelected.toString()}
+        pedidoService.deleteSelected(idString).then( data => {
+            if(data.data) {
+                Swal.fire(
+                    {
+                     icon: 'success',
+                     title: 'Pedidos eliminados',
+                     showConfirmButton: false,
+                     timer: 1300
+                    }
+                   )
+
+                   $scope.getPedidos();
+            } else {
+                Swal.fire(
+                    {
+                     icon: 'error',
+                     title: 'Ha ocurrido un error al eliminar',
+                     showConfirmButton: false,
+                     timer: 1300
+                    }
+                   )
+            }
+        }, reject => {
+            Swal.fire(
+                {
+                 icon: 'error',
+                 title: 'Error al eliminar el usuario',
+                 showConfirmButton: false,
+                 timer: 1300
+                }
+               )
+        })
+    }
 
     angular.element(document).ready(function() {
         $scope.getPedidos();

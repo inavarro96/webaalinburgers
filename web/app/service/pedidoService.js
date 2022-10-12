@@ -22,6 +22,16 @@ angular.module('app').service('pedidoService', function(httpFactory, $q) {
         });
     };
 
+    SELF.deleteSelected = (ids) => {
+        return $q((resolve, reject) => {
+            httpFactory.post(`${URL}deleteSelected`, ids).then(response => {
+                resolve(response);
+            }, error => {
+                reject(error);
+            })
+        });
+    };
+
     SELF.put = (data) => {
         return $q((resolve, reject) => {
             httpFactory.post(`${URL}put`, data).then(response => {

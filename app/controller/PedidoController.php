@@ -34,6 +34,10 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
         $response['data'] = $service -> delete($_POST['id_pedido']);
     }
 
+    if($_GET['action'] == 'deleteSelected') {
+        $response['data'] = $service -> deleteVarios($_POST['ids']);
+    }
+
     if($_GET['action'] == 'getAll') {
         $response['data'] = $service -> getAll();
     }

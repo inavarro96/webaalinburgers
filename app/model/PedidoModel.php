@@ -92,9 +92,8 @@ class PedidoModel extends Connection {
     }
 
     public function delete($id) {
-
         $stm = Connection::connect() -> prepare("UPDATE pedido SET fecha_eliminado = CURDATE() WHERE id = :id");
-
+        $stm -> bindParam("id",$id, PDO::PARAM_STR);
         if($stm->execute()){
             return "success";
         }else{

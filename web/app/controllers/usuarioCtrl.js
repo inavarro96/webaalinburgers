@@ -145,7 +145,7 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
     $scope.confirmDelete = usuario => {
         console.log('eliminar')
         Swal.fire({
-            title: '¿Esta seguro que deseea borrar el usuario?',
+            title: '¿Esta seguro que desea borrar el usuario?',
             text: usuario.nombre,
             icon: 'warning',
             showCancelButton: true,

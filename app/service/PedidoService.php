@@ -80,6 +80,19 @@ class PedidoService {
         return $result;
     }
 
+    public function deleteVarios($ids) {
+        if(isset($ids) and !empty($ids)) {
+            $arrayId = explode(",", $ids);
+            $model = new PedidoModel();
+            foreach($arrayId as &$id) {
+                $model -> delete($id);
+            }
+            return 'Se han eliminado los pedidos';
+        }
+        
+        return 'No cuenta con ids para eliminar';
+    
+    }
     public function delete($id) {
         $result = null;
 
