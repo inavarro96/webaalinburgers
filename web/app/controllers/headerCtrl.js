@@ -1,5 +1,6 @@
-app.controller('headerCtrl', function($scope, sesionService, sessionFactory, notificacionService) {
+app.controller('headerCtrl', function($scope, sesionService, sessionFactory, notificacionService, $location) {
 
+    $scope.cantidadNotificaciones = 0;
     sesionService.get().then(session => {
         sessionFactory.setList('user',session.data);
         $scope.user = sessionFactory.getList('user');
@@ -9,8 +10,9 @@ app.controller('headerCtrl', function($scope, sesionService, sessionFactory, not
     });
 
     $scope.getNotificaciones = () => {
-        notificacionService.getAll().then(notificaciones => {
-            console.log('notificaciones',notificaciones)
+        $scope.user = sessionFactory.getList('user');
+        notificacionService.getAll($scope.user.id).then(notificaciones => {
+          
             $scope.notificaciones = [];
             $scope.notificacionesLength = 0;
             for(let i in notificaciones.data) {
@@ -20,14 +22,19 @@ app.controller('headerCtrl', function($scope, sesionService, sessionFactory, not
                 }
                
             }
-    
+            if($scope.notificacionesLength > $scope.cantidadNotificaciones) {
+                let i = $scope.notificacionesLength-1
+                $scope.createPushNotificacion (notificaciones.data[i].asunto, notificaciones.data[i].descripcion)
+            }
+            $scope.cantidadNotificaciones = $scope.notificacionesLength;
         }, error => {
-            cconsole.log('Error al obtener las sesiones', error);
+            console.log('Error al obtener las sesiones', error);
         });
     }
    
 
     $scope.viewNotificacion = idNotificacion => {
+        $scope.user = sessionFactory.getList('user');
         let send = { idNotificacion,
             idUsuario: $scope.user.id
          };
@@ -49,8 +56,24 @@ app.controller('headerCtrl', function($scope, sesionService, sessionFactory, not
         })
     };
 
+    $scope.createPushNotificacion = (asunto, descripcion) => {
+        Push.create(asunto, {
+            body: descripcion,
+            icon: '../../img/icon.png',
+            timeout: 5000,
+            vibrate:[100,100,100],
+            onclick: function() {
+                $location.path('/pedidos');
+            } 
+        });
+    }
+
     angular.element(document).ready(function() {
         $scope.getNotificaciones();
+        
     });
 
+    setInterval(function(){ 
+        $scope.getNotificaciones() 
+       }, 5000);
 });

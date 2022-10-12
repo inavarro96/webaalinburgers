@@ -3,9 +3,9 @@ angular.module('app').service('notificacionService', function(httpFactory, $q) {
     const SELF = this;
     const URL = 'NotificacionController.php?action=';
 
-    SELF.getAll = () => {
+    SELF.getAll = (idUsuario) => {
         return $q((resolve, reject) => {
-            httpFactory.get(`${URL}getAll`).then(response => {
+            httpFactory.get(`${URL}getAll&idUsuario=${idUsuario}`).then(response => {
                 resolve(response);
             }, error => {
                 reject(error);

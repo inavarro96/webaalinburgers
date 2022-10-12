@@ -221,5 +221,11 @@ session_start();
         <script src="app/controllers/productoCtrl.js"></script>
         <script src="app/controllers/usuarioCtrl.js"></script>
         <script src="app/controllers/pedidoCtrl.js"></script>  
+        <script src="js/push.min.js"></script>
+        <script>
+            window.onload = function() {
+                Push.Permission.request();
+            }
+        </script>
     </body>
 </html>

@@ -14,9 +14,8 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     $response['state'] = 'OK';
 
     if($_GET['action'] === 'getAll') {
-        session_start();
-        $user = $_SESSION['user'];
-        $response['data'] = $service -> getAll($user['id']);
+      
+        $response['data'] = $service -> getAll($_GET['idUsuario']);
     }
     if($_GET['action'] === 'delete') {
         $response['data'] = $service -> delete($_POST['idNotificacion'],$_POST['idUsuario']);
