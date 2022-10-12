@@ -47,7 +47,7 @@ class NotificacionModel extends Connection {
 
         $query = "SELECT * FROM notificacion_usuario nu "
                 ."INNER JOIN notificacion n ON nu.id_notificacion = n.id "
-                ."WHERE nu.id_usuario = :idUsuario";
+                ."WHERE nu.id_usuario = :idUsuario AND fecha_visto IS NULL";
 
         $stm = Connection::connect() -> prepare($query);
         $stm -> bindParam("idUsuario", $idUsuario);
@@ -57,12 +57,13 @@ class NotificacionModel extends Connection {
         return $stm -> fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function delete($idUsuario, $idNotificacion) {
-        
-        $stm = Connection::connect() -> prepare("DELETE FROM notificacion_usuario WHERE id_notificacacion = :idNotificacion AND id_usuario = :idUsuario");
+    public function delete( $idNotificacion,$idUsuario) {
+        // echo("'".$idUsuario."'");
+        // echo("'".$idNotificacion."'");
+        $stm = Connection::connect() -> prepare("UPDATE notificacion_usuario SET fecha_visto =  CURDATE() WHERE id_notificacion = :idNotificacion AND id_usuario = :idUsuario");
 
-        $stm -> bindParam("idUsuario",$idUsuario);
-        $stm -> bindParam("idNotificacion", $idNotificacion);
+        $stm -> bindParam("idUsuario",$idUsuario, PDO::PARAM_STR);
+        $stm -> bindParam("idNotificacion", $idNotificacion, PDO::PARAM_STR);
 
         if($stm->execute()) {
             return "sucess";

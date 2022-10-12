@@ -33,7 +33,7 @@ class NotificacionService {
     }
 
     public function delete($idNotificacion, $idUsuario) {
-        $result = null;
+      
         if(isset($idNotificacion) and !empty($idUsuario)) {
             $mvc = new NotificacionModel();
             return $mvc -> delete($idNotificacion, $idUsuario);

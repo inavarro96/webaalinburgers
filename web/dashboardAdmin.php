@@ -129,7 +129,8 @@ session_start();
                                 aria-labelledby="navbarDropdownMenuLink"
                             >
                                 <li ng-repeat="notificacion in notificaciones">
-                                    <a class="dropdown-item" href="#"
+                                    <a class="dropdown-item" href="#!/pedidos"
+                                        ng-click="viewNotificacion(notificacion.id)"
                                         >{{notificacion.asunto}}</a
                                     >
                                 </li>
