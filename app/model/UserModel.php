@@ -5,7 +5,7 @@ require_once "Connection.php";
 class UsuarioModel extends Connection {
     
     public function insert($user) {
-        $stm = Connection::connect() -> prepare("INSERT INTO usuario(usuario, password, nombre, apellidos, perfil) VALUES (:usuario, :password, :nombre, :apellidos, :perfil)");
+        $stm = Connection::connect() -> prepare("INSERT INTO usuario(usuario, telefono, password, nombre, apellidos, perfil) VALUES (:usuario, :telefono,:password, :nombre, :apellidos, :perfil)");
 
         $options = [
             'cost' =>12
@@ -28,12 +28,13 @@ class UsuarioModel extends Connection {
     }
 
     public function update($user) {
-        $stm = Connection::connect() -> prepare("UPDATE usuario SET usuario = :usuario, nombre = :nombre, apellido = :apellido, telefono = :telefono WHERE id = :id");
+        $stm = Connection::connect() -> prepare("UPDATE usuario SET usuario = :usuario, nombre = :nombre, apellidos = :apellidos, telefono = :telefono, perfil = :perfil WHERE id = :id");
 
         $stm -> bindParam("usuario",$user['usuario'], PDO::PARAM_STR);
         $stm -> bindParam("telefono",$user['telefono'], PDO::PARAM_STR);
         $stm -> bindParam("nombre",$user['nombre'], PDO::PARAM_STR);
         $stm -> bindParam("apellidos",$user['apellidos'], PDO::PARAM_STR);
+        $stm -> bindParam("perfil",$user['perfil'], PDO::PARAM_STR);
         $stm -> bindParam("id",$user['id'], PDO::PARAM_STR);
 
         if($stm->execute()){
