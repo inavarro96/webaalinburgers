@@ -38,6 +38,10 @@ class UsuarioModel extends Connection {
         $stm -> bindParam("id",$user['id'], PDO::PARAM_STR);
 
         if($stm->execute()){
+
+            if(isset($usuario['password']) and !empty($usuario['password'])) {
+                return $this ->updatedPassword($user);
+            }
             return "success";
         }else{
             $error = $stm->errorInfo();
@@ -45,7 +49,7 @@ class UsuarioModel extends Connection {
         }
     }
 
-    public function updatePassword($user) {
+    public function updatedPassword($user) {
         $stm = Connection::connect() -> prepare("UPDATE usuario SET usuario = :usuario, password = :password WHERE id = :id");
 
         $options = ['cost' => 12];

@@ -87,7 +87,7 @@
                     <input
                         type="text"
                         id="nombre"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{usuario.id?'active':''}}"
                         name="nombre"
                         ng-model="usuario.nombre"
                         required
@@ -98,7 +98,7 @@
                     <input
                         type="text"
                         id="apellidos"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{usuario.id?'active':''}}"
                         name="apellidos"
                         ng-model="usuario.apellidos"
                         required
@@ -109,7 +109,7 @@
                     <input
                         type="text"
                         id="telefono"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{usuario.id?'active':''}}"
                         name="telefono"
                         ng-model="usuario.telefono"
                         required
@@ -120,25 +120,29 @@
                     <input
                         type="text"
                         id="usuario"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{usuario.id?'active':''}}"
                         ng-model="usuario.usuario"
                         name="usuario"
                         required
                     />
                     <label class="form-label" for="usuario">Usuario</label>
                 </div>
-                <div class="form-outline mb-4">
+                <div class="form-outline  mb-4" ng-show="!usuario.id">
                     <input
                         type="password"
                         id="password"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg {{usuario.id?'active':''}}"
                         name="password"
-                        required
+                        ng-required="!usuario.id"
                         ng-model="usuario.password"
                         
                     />
+
                     <label class="form-label" for="password">Contraseña</label>
+
                 </div>
+               
+
                 <div class="form-outline mb-4">
                     <select
                         type="perfil"
@@ -149,8 +153,8 @@
                         ng-model="usuario.perfil"
                     >
                         <option value="" disabled>Seleccionar</option>
-                        <option value="1">Administrador</option>
-                        <option value="0">Usuario</option>
+                        <option value="1" ng-value="1">Administrador</option>
+                        <option value="0" ng-value="0">Usuario</option>
                     </select>
                     <label class="form-label" for="perfil">Perfil</label>
                 </div>

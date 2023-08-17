@@ -1,6 +1,6 @@
 // Control de rutas de navegacion
 
-app.config(['$locationProvider','$routeProvider', function($locationProvider, $routeProvider) {
+app.config(function($locationProvider, $routeProvider) {
     $routeProvider
     // .when("/", {
     //     templateUrl:"/webaalinburgers/web/views/main.html",
@@ -8,15 +8,24 @@ app.config(['$locationProvider','$routeProvider', function($locationProvider, $r
     // })
     .when("/productos", {
         templateUrl:"/webaalinburgers/web/views/producto.html",
-        controller:"productoCtrl"
+        controller:"productoCtrl",
+        activetab: "productos"
     })
     .when("/usuarios", {
         templateUrl:"/webaalinburgers/web/views/usuario.html",
-        controller:"usuarioCtrl"
+        controller:"usuarioCtrl",
+        activetab:"usuarios"
     })
     .when("/pedidos", {
         templateUrl:"/webaalinburgers/web/views/pedido.html",
-        controller:"pedidoCtrl"
+        controller:"pedidoCtrl",
+        activetab:"pedidos"
     })
-    .otherwise({directTo: '/pedidos'})
-}]);
+    .when("/", {
+        templateUrl:"/webaalinburgers/web/views/pedido.html",
+        controller:"pedidoCtrl",
+        activetab:"pedidos"
+    });
+}).run(function ($rootScope, $route) {
+    $rootScope.$route = $route;
+})

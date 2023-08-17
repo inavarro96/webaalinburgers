@@ -34,6 +34,7 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
         }
     }
 
+
     $scope.registrar = () => {
 
         let fd = new FormData();
@@ -205,4 +206,6 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
     angular.element(document).ready(function() {
         init();
     });
+
+
 });

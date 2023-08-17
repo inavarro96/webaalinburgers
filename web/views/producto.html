@@ -1,4 +1,19 @@
 <link rel="stylesheet" href="css/mdb.min.css" />
+<style>
+    /* Limit image width to avoid overflow the container */
+    img {
+        max-width: 100%; /* This rule is very important, please do not ignore this! */
+    }
+
+    #canvas {
+        height: 600px;
+        width: 600px;
+        background-color: #ffffff;
+        cursor: default;
+        border: 1px solid black;
+    }
+
+</style>
 <div class="card" ng-if="!producto">
     <div class="card-header d-flex justify-content-between">
         <h5>Productos registrados</h5>
@@ -70,7 +85,7 @@
     <div class="card-footer text-muted"></div>
 </div>
 
-<div class="card" ng-if="producto">
+<div class="card" ng-show="producto">
     <div class="card-header d-flex justify-content-between">
         <h5>{{producto.id?'Editar':'Agregar'}} producto</h5>
         <button
@@ -135,6 +150,9 @@
                         >Descripcion</label
                     >
                 </div>
+                <div class="form-outline mb-4">
+                    <div id="result" ></div>
+                </div>
                 <div class="form-outline mb-4" ng-if="producto.imagen">
                     <img
                         src="../fotos/{{producto.imagen}}"
@@ -142,6 +160,7 @@
                         style="width: 100px; height: 100px"
                         class="rounded-circle"
                     />
+
                 </div>
                 <div class="form-outline mb-4">
                     <label class="form-label" for="imagen">Imagen</label>
@@ -149,11 +168,22 @@
                         type="file"
                         class="form-control form-control-lg"
                         id="imagen"
+                        accept="image/*"
                         data-file-model="producto.uploadFoto"
                     />
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-center mb-4">
+
+                <button
+                        type="button"
+                        class="btn btn-outline-success btn-rounded ml-5"
+                        data-mdb-ripple-color="dark"
+                        data-mdb-toggle="modal"
+                        data-mdb-target="#modalCortarImagen"
+                >
+                    imagen
+                </button>
                 <input
                     type="submit"
                     class="btn btn-outline-primary btn-rounded"
@@ -177,4 +207,73 @@
     </div>
   
 </div>
+<!-- Modal confirmar pedido-->
+<div class="modal fade" id="modalCortarImagen" tabindex="-1" aria-labelledby="modalCortarImagen" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header mt-4">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmar Pedido</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <canvas id="canvas">
+                        Your browser does not support the HTML5 canvas element.
+                    </canvas>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="file" id="fileInput" accept="image/*" />
+                <input type="button" id="btnRestore" value="Reiniciar" />
+                <input type="button" id="btnCrop"  data-mdb-dismiss="modal" value="Recortar y Cerrar" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.js"></script>
 <script type="text/javascript" src="js/mdb.min.js"></script>
+
+<script>
+    var canvas  = $("#canvas"),
+
+        context = canvas.get(0).getContext("2d"),
+        $result = $('#result');
+    console.log(canvas);
+    $('#fileInput').on( 'change', function(){
+        if (this.files && this.files[0]) {
+            if ( this.files[0].type.match(/^image\//) ) {
+                var reader = new FileReader();
+                reader.onload = function(evt) {
+                    var img = new Image();
+                    img.onload = function() {
+                        context.canvas.height = img.height;
+                        context.canvas.width  = img.width;
+                        context.drawImage(img, 0, 0);
+                        var cropper = $("#canvas").cropper({
+                            aspectRatio: 16 / 9
+                        });
+                        $('#btnCrop').click(function() {
+                            // Get a string base 64 data url
+                            var croppedImageDataURL = $("#canvas").cropper('getCroppedCanvas').toDataURL("image/png");
+                            $result.append( $('<img>').attr('src', croppedImageDataURL) );
+                        });
+                        $('#btnRestore').click(function() {
+                            $("#canvas").cropper('reset');
+                            $result.empty();
+                        });
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+            else {
+                alert("Invalid file type! Please select an image file.");
+            }
+        }
+        else {
+            alert('No file(s) selected.');
+        }
+    });
+</script>

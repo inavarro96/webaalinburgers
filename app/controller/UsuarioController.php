@@ -25,6 +25,19 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
          $response['data'] = $service-> post($_POST);
      }
 
+    if($_GET['action'] === 'registarUsuario') {
+        $_POST['usuario'] = "israel";
+        $_POST['telefono'] = "7361040461";
+        $_POST['password'] = "israel";
+        $_POST['nombre'] = "Israel";
+        $_POST['apellidos'] = "Navarro";
+        $_POST['perfil'] = "1";
+
+        $response['data'] = $service-> post($_POST);
+
+
+    }
+
      if($_GET['action'] === 'put') {
         $response['data'] = $service-> update($_POST);
      }

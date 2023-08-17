@@ -19,6 +19,7 @@ app.controller("usuarioCtrl", function($scope, usuarioService) {
     $scope.editarUsuario = usuario => {
         $scope.usuario = {};
         angular.copy(usuario, $scope.usuario);
+        $scope.usuario.password = null;
        
     }
 

@@ -29,6 +29,7 @@ session_start();
         <link rel="stylesheet" href="css/mdb.min.css" />
         <!-- Custom styles -->
         <link rel="stylesheet" href="css/admin.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.css">
     </head>
 
     <body>
@@ -49,22 +50,25 @@ session_start();
                             <i class="fas fa-tachometer-alt fa-fw me-3"></i
                             ><span>Dashboard</span>
                         </a> -->
+
+                        <a
+                            href="#!/pedidos"
+                            ng-class="{'active': $route.current.activetab == 'pedidos'}"
+                            class="list-group-item list-group-item-action py-2 ripple"
+                            ><i class="fas fa-money-bill fa-fw me-3"></i
+                            ><span>Pedidos</span></a
+                        >
                         <a ng-if="user.perfil == 1"
-                            href="#!/productos"
-                            class="list-group-item list-group-item-action py-2 ripple active"
+                           ng-class="{'active': $route.current.activetab == 'productos'}"
+                           href="#!/productos"
+                           class="list-group-item list-group-item-action py-2 ripple"
                         >
                             <i class="fas fa-chart-area fa-fw me-3"></i
                             ><span>Productos</span>
                         </a>
                         <a
-                            href="#!/pedidos"
-                            class="list-group-item list-group-item-action py-2 ripple"
-                            ><i class="fas fa-money-bill fa-fw me-3"></i
-                            ><span>Pedidos</span></a
-                        >
-
-                        <a
                             href="#!/usuarios" ng-if="user.perfil == 1"
+                            ng-class="{'active': $route.current.activetab == 'usuarios'}"
                             class="list-group-item list-group-item-action py-2 ripple"
                             ><i class="fas fa-users fa-fw me-3"></i
                             ><span>Usuarios</span></a
@@ -189,7 +193,8 @@ session_start();
             </div>
             <!-- Copyright -->
         </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
         <!-- MDB -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
         <!-- Angular -->
