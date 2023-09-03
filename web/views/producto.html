@@ -33,6 +33,7 @@
                     <th>Nombre</th>
                     <th>Precio</th>
                     <th>Cantidad</th>
+                    <th>Ingredientes</th>
                     <th>Eliminar</th>
                     <th>Modificar</th>
                 </tr>
@@ -57,6 +58,16 @@
                     </td>
                     <td>
                         <p class="fw-normal mb-1">{{producto.cantidad}}</p>
+                    </td>
+                    <td>
+                        <button
+                                type="button"
+                                class="btn btn-outline-info btn-rounded"
+                                data-mdb-ripple-color="dark"
+                                ng-click="showIngredientes(producto)"
+                        >
+                            <i class="far fa-trash-alt"></i> Ingredientes
+                        </button>
                     </td>
                     <td>
                         <button
