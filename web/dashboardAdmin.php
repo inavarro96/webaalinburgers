@@ -219,13 +219,15 @@ session_start();
         <script src="app/service/archivoService.js"></script>
         <script src="app/service/sesionService.js"></script>
         <script src="app/service/notificacionService.js"></script>
+        <script src="app/service/ingredienteService.js"></script>
         
         <!-- Angular controllers -->
         <script src="app/controllers/headerCtrl.js"></script>
         <script src="app/controllers/mainCtrl.js"></script>
         <script src="app/controllers/productoCtrl.js"></script>
         <script src="app/controllers/usuarioCtrl.js"></script>
-        <script src="app/controllers/pedidoCtrl.js"></script>  
+        <script src="app/controllers/pedidoCtrl.js"></script>
+        <script src="app/controllers/ingredienteCtrl.js"></script>
         <script src="js/push.min.js"></script>
         <script>
             window.onload = function() {

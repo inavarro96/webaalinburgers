@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="css/mdb.min.css" />
+<div class="card" ng-if="!ingrediente">
+    <div class="card-header d-flex justify-content-between">
+        <h5>Ingredintes registrados</h5>
+        <button
+                type="button"
+                class="btn btn-outline-primary btn-rounded"
+                data-mdb-ripple-color="dark"
+                ng-click="addIngrediente()"
+        >
+            <i class="fas fa-plus"></i> Agregar
+        </button>
+    </div>
+    <div class="card-body">
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha creado</th>
+                <th>Eliminar</th>
+                <th>Modificar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="ingrediente in ingredientes">
+                <td>
+                    <p class="fw-bold mb-1">{{ingrediente.nombre}}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">{{ingrediente.fecha_creado | date: 'MM/dd/yyyy h:mma'}}</p>
+                </td>
+                <td>
+                    <button
+                            type="button"
+                            class="btn btn-outline-danger btn-rounded"
+                            data-mdb-ripple-color="dark"
+                            ng-click="confirmDelete(ingrediente)"
+                    >
+                        <i class="far fa-trash-alt"></i> Eliminar
+                    </button>
+                </td>
+                <td>
+                    <button
+                            type="button"
+                            class="btn btn-outline-warning btn-rounded"
+                            data-mdb-ripple-color="dark"
+                            ng-click="editarIngrediente(ingrediente)"
+                    >
+                        <i class="fas fa-pen"></i> Editar
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-muted"></div>
+</div>
+
+<div class="card" ng-if="ingrediente">
+    <div class="card-header d-flex justify-content-between">
+        <h5>{{usuario.id?'Editar':'Agregar'}} usuario</h5>
+        <button
+                type="button"
+                class="btn btn-outline-primary btn-rounded"
+                data-mdb-ripple-color="dark"
+                ng-click="regresar()"
+        >
+            <i class="fas fa-arrow-left"></i> Regresar
+        </button>
+    </div>
+    <div class="card-body">
+        <form class="row justify-content-center" novalidate name="formUsuario" data-ng-submit="submitForm(formUsuario.$valid)" autocomplete="off">
+            <div class="col-md-4 col-sm-12">
+                <div class="form-outline mb-4">
+                    <input
+                            type="text"
+                            id="nombre"
+                            class="form-control form-control-lg {{ingrediente.id?'active':''}}"
+                            name="nombre"
+                            ng-model="ingrediente.nombre"
+                            required
+                    />
+                    <label class="form-label" for="nombre">Nombre</label>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <button
+                        type="submit"
+                        class="btn btn-outline-primary btn-rounded"
+                        data-mdb-ripple-color="dark"
+                >
+                    {{ingrediente.id?'Editar':'Agregar'}}
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-outline-warning btn-rounded"
+                        data-mdb-ripple-color="dark"
+                        ng-click="regresar()"
+                >
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script type="text/javascript" src="js/mdb.min.js"></script>

@@ -10,8 +10,9 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     $service = new IngredienteService();
     $response['state'] = 'OK';
 
-    if($_GET['action'] === 'getById') {
-        $response['data'] = $service -> getById($_GET['id']);
+    if($_GET['action'] === 'getByProductoId') {
+        $response['id'] = $_GET['id'];
+        $response['data'] = $service -> getByProductoId($_GET['id']);
     }
 
     if($_GET['action'] === 'post') {
@@ -19,11 +20,11 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     }
 
     if($_GET['action'] === 'put') {
-        $response['data'] = $service -> put($_POST);
+        $response['data'] = $service -> update($_POST);
     }
 
     if($_GET['action'] === 'delete') {
-        $response['data'] = $service -> delete($_POST['id']);
+        $response['data'] = $service -> delete($_POST['idProducto']);
     }
 
 } else {

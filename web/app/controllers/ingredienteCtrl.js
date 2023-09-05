@@ -1,10 +1,10 @@
-app.controller("ingredientCrl", function ($scope, ingredienteService) {
+app.controller("ingredienteCtrl", function ($scope, $route, $routeParams,  ingredienteService) {
     $scope.producto = null;
     $scope.ingrediente = null;
     $scope.ingredientes = [];
 
     $scope.getIngredientes = () => {
-        ingredienteService.getByProductoId($scope.producto.id).then(response => {
+        ingredienteService.getAllByProductoId($scope.producto.id).then(response => {
             $scope.ingredientes = response.data;
         }, reject => {
             console.log("Error al obtener los productos: ", reject)
@@ -17,10 +17,25 @@ app.controller("ingredientCrl", function ($scope, ingredienteService) {
         }
     }
 
+    $scope.regresar = () => {
+        $scope.ingrediente = null;
+    }
+
     $scope.editarIngrediente = ingrediente => {
-        $scope.producto = {};
+        $scope.ingrediente = {};
         angular.copy(ingrediente, $scope.ingrediente);
     }
+
+    $scope.submitForm = isValid => {
+        console.log('submit', $scope.ingrediente)
+        if(isValid) {
+            if($scope.ingrediente.id) {
+                $scope.actualizar();
+            } else {
+                $scope.registrar();
+            }
+        }
+    };
 
     $scope.registrar = () => {
         console.log('data', $scope.ingrediente)
@@ -149,4 +164,14 @@ app.controller("ingredientCrl", function ($scope, ingredienteService) {
             }
         })
     }
+
+    const init = () => {
+        $scope.producto = $routeParams;
+        console.log($scope.producto)
+        $scope.getIngredientes();
+    };
+
+    angular.element(document).ready(function () {
+        init();
+    })
 });

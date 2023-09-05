@@ -1,4 +1,4 @@
-app.controller("productoCtrl", function($scope, productoService, archivoService) {
+app.controller("productoCtrl", function($scope, $location, productoService, archivoService) {
     $scope.producto = null;
     $scope.productos = [];
 
@@ -180,6 +180,11 @@ app.controller("productoCtrl", function($scope, productoService, archivoService)
                 }
                )
         })
+    }
+
+    $scope.showIngredientes = (producto) => {
+        console.log('producto', producto)
+        $location.path('ingredientes/'+producto.id+'/'+producto.nombre);
     }
 
     $scope.confirmDelete = producto => {

@@ -1,7 +1,7 @@
 <?php
 
 class IngredienteService {
-    public function post($ingredientusuarioe) {
+    public function post($ingrediente) {
         $result = null;
 
         if(isset($ingrediente['nombre']) and !empty($ingrediente['nombre'])){
@@ -41,6 +41,6 @@ class IngredienteService {
 
     public function getByProductoId($idProducto) {
         $mvc = new IngredienteModel();
-        $result = $mvc -> getByProductoId($idProducto);
+        return $mvc -> getByProductoId($idProducto);
     }
 }

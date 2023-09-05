@@ -4,9 +4,10 @@ require_once "Connection.php";
 class IngredienteModel extends Connection {
 
     public function insert($ingrediente) {
-        $query = "INSERT INTO ingrediente(nombre) VALUES (:nombre)";
+        $query = "INSERT INTO ingrediente(nombre, id_producto) VALUES (:nombre, :id_producto)";
         $stm = Connection::connect()->prepare($query);
         $stm -> bindParam("nombre", $ingrediente['nombre'], PDO::PARAM_STR);
+        $stm -> bindParam("id_producto", $ingrediente['id_producto'], PDO::PARAM_INT);
         if ($stm -> execute()) {
             return $this-> getLastId();
         } else {
@@ -20,7 +21,7 @@ class IngredienteModel extends Connection {
 
         $stm = Connection::connect()->prepare($query);
         $stm -> bindParam("nombre", $ingrediente['nombre'], PDO::PARAM_STR);
-        $stm -> bindParam("id", $producto["id"]);
+        $stm -> bindParam("id", $ingrediente["id"]);
         if ($stm -> execute()) {
             return "success";
         } else {

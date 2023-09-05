@@ -21,6 +21,12 @@ app.config(function($locationProvider, $routeProvider) {
         controller:"pedidoCtrl",
         activetab:"pedidos"
     })
+    .when("/ingredientes/:id/:nombre", {
+        templateUrl:"/webaalinburgers/web/views/ingrediente.html",
+        controller:"ingredienteCtrl",
+        activetab:"productos"
+
+    })
     .when("/", {
         templateUrl:"/webaalinburgers/web/views/pedido.html",
         controller:"pedidoCtrl",
