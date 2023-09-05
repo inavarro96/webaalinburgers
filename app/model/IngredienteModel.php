@@ -32,7 +32,7 @@ class IngredienteModel extends Connection {
     }
 
     public function delete($id) {
-        $stm = Connection::connect() ->prepare("UPDATE ingrediente SET fecha_baja = CURDATE() WHERE id: id");
+        $stm = Connection::connect() ->prepare("UPDATE ingrediente SET fecha_baja = CURDATE() WHERE id =:id");
         $stm ->bindParam("id", $id, PDO::PARAM_INT);
         if($stm->execute()) {
             return "success";

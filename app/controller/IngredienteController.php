@@ -24,7 +24,7 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     }
 
     if($_GET['action'] === 'delete') {
-        $response['data'] = $service -> delete($_POST['idProducto']);
+        $response['data'] = $service -> delete($_POST['id']);
     }
 
 } else {
