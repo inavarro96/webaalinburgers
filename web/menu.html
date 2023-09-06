@@ -208,27 +208,29 @@
                   class="d-flex justify-content-center align-items-center pb-3"
               >
               </div>
+                    <form
+                            class="row justify-content-center"
+                            name="formMenu"
+                            novalidate>
+                        <div class="col-md-6 col-sm-12 mt-3">
+
+                            <div class="form-outline mb-4 active">
+                                <input
+                                        type="number"
+                                        id="cantidad"
+                                        class="form-control form-control-lg active"
+                                        required
+                                        name="cantidad"
+                                        data-ng-model="pedido.cantidad"
+                                />
+                                <label class="form-label" for="cantidad">Cantidad</label>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
               </div>
-              <form  
-                    class="row justify-content-center"
-                    name="formMenu"
-                    novalidate>
-                    <div class="col-md-6 col-sm-12">
 
-                        <div class="form-outline mb-4 active">
-                            <input
-                                type="number"
-                                id="cantidad"
-                                class="form-control form-control-lg active"
-                                required
-                                name="cantidad"
-                                data-ng-model="pedido.cantidad"
-                            />
-                            <label class="form-label" for="cantidad">Cantidad</label>
-                        </div>
-                    </div>
-                </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>

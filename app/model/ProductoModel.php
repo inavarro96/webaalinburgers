@@ -1,6 +1,7 @@
 <?php
 
 require_once "Connection.php";
+require_once "IngredienteModel.php";
 
 class ProductoModel extends Connection {
 
@@ -60,11 +61,20 @@ class ProductoModel extends Connection {
     }
 
     public function getAllStock() {
+        $mvcIngrediente = new IngredienteModel();
+
         $query = "SELECT * FROM producto WHERE fecha_baja IS NULL AND cantidad > 0";
+
         $stm = Connection::connect()->prepare($query);
 
         $stm ->execute();
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        $productos = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+        for ($i = 0; $i < count($productos); $i++) {
+            $productos[$i]['ingredientes'] = $mvcIngrediente -> getByProductoId($productos[$i]['id']);
+        }
+
+        return $productos;
     }
 
     public function getAllById($id) {
