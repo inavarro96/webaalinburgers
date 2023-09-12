@@ -202,8 +202,9 @@
                   <p class="card-text text-center">
                     <span>{{producto.precio}}</span> <br><br>
                     <span>Total: {{producto.precio * pedido.cantidad}}</span>
+
                   </p>
-                  
+
                   <div
                   class="d-flex justify-content-center align-items-center pb-3"
               >
@@ -213,7 +214,13 @@
                             name="formMenu"
                             novalidate>
                         <div class="col-md-6 col-sm-12 mt-3">
-
+                            <div class="form-outline mb-4">
+                                <div class="form-check" data-ng-repeat="ingrediente in producto.ingredientes track by $index">
+                                    <input class="form-check-input" type="checkbox" data-ng-model="pedido.ingredientesSeleccionados[$index]" id="ingrediente{{ingrediente.id}}"
+                                           ng-true-value="{{ingrediente}}" ng-false-value="'0'">
+                                    <label for="ingrediente{{ingrediente.id}}" class="form-check-label"> {{ingrediente.nombre}}</label>
+                                </div>
+                            </div>
                             <div class="form-outline mb-4 active">
                                 <input
                                         type="number"
@@ -283,18 +290,28 @@
                     });
                 };
 
-               
-
                 $scope.seleccionarProducto = producto => {
                     $scope.producto = producto;
                     $scope.pedido.cantidad = 1;
                 };
+
+                $scope.seleccionarIngredientes = ingredientes => {
+                    let valores = Object.entries(ingredientes);
+                    console.log("valores, ", valores)
+                    let ingredientesFiltrados = valores.filter(idIngrediente => idIngrediente[1] != "0");
+                    let ingredientesSelected = [];
+                    ingredientesFiltrados.forEach(ing => {
+                        ingredientesSelected.push(ing[1]);
+                    })
+                    return ingredientesSelected;
+                }
 
                 $scope.agregarProducto = () => {
                     $scope.pedido.id_producto = $scope.producto.id;
                     $scope.pedido.nombreProducto = $scope.producto.nombre;
                     $scope.pedido.imagen = $scope.producto.imagen;
                     $scope.pedido.precio = $scope.producto.precio;
+                    $scope.pedido.ingredientes = $scope.seleccionarIngredientes($scope.pedido.ingredientesSeleccionados);
                     if($scope.pedido.cantidad > $scope.producto.cantidad) {
                         Swal.fire(
                         {
@@ -305,6 +322,7 @@
                         }
                        )
                     } else {
+                        console.log("PEDIDO, ", $scope.pedido)
                         $scope.agregarProductoPedido();
                     }
                 };

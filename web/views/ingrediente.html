@@ -2,14 +2,26 @@
 <div class="card" ng-if="!ingrediente">
     <div class="card-header d-flex justify-content-between">
         <h5>Ingredintes registrados de {{producto.nombre}}</h5>
-        <button
-                type="button"
-                class="btn btn-outline-primary btn-rounded"
-                data-mdb-ripple-color="dark"
-                ng-click="addIngrediente()"
-        >
-            <i class="fas fa-plus"></i> Agregar
-        </button>
+        <div>
+            <button
+                    type="button"
+                    class="btn btn-outline-primary btn-rounded"
+                    data-mdb-ripple-color="dark"
+                    ng-click="regresar()"
+            >
+                <i class="fas fa-arrow-left"></i> Regresar
+            </button>
+
+            <button
+                    type="button"
+                    class="btn btn-outline-primary btn-rounded"
+                    data-mdb-ripple-color="dark"
+                    ng-click="toReturn()"
+            >
+                <i class="fas fa-plus"></i> Agregar
+            </button>
+        </div>
+
     </div>
     <div class="card-body">
         <table class="table align-middle mb-0 bg-white">

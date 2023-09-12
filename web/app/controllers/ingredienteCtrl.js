@@ -1,4 +1,4 @@
-app.controller("ingredienteCtrl", function ($scope, $route, $routeParams,  ingredienteService) {
+app.controller("ingredienteCtrl", function ($scope, $route, $location,$routeParams,  ingredienteService) {
     $scope.producto = null;
     $scope.ingrediente = null;
     $scope.ingredientes = [];
@@ -73,6 +73,9 @@ app.controller("ingredienteCtrl", function ($scope, $route, $routeParams,  ingre
         })
     }
 
+    $scope.toReturn = () => {
+      $location.path("productos");
+    };
 
     $scope.actualizar = () => {
         console.log('actualizar')
