@@ -312,6 +312,7 @@
                     $scope.pedido.imagen = $scope.producto.imagen;
                     $scope.pedido.precio = $scope.producto.precio;
                     $scope.pedido.ingredientes = $scope.seleccionarIngredientes($scope.pedido.ingredientesSeleccionados);
+                    $scope.pedido.ingredientesProducto = $scope.producto.ingredientes;
                     if($scope.pedido.cantidad > $scope.producto.cantidad) {
                         Swal.fire(
                         {
@@ -342,6 +343,7 @@
                          timer: 1300
                         }
                        )
+                        $scope.pedido = {};
                     }, function(response) {
                         console.error(response);
 

@@ -49,6 +49,7 @@ class PedidoModel extends Connection {
             $stm3 -> bindParam("id_pedido",$idPedido['id'], PDO::PARAM_STR);
             $stm3 -> bindParam("id_producto",$producto['id_producto'], PDO::PARAM_STR);
             $stm3 -> bindParam("cantidad",$producto['cantidad'], PDO::PARAM_STR);
+            $stm3 -> bindParam("ingredientes", $producto['ingredientes']);
             $res =  $stm3 -> execute();
             
             $productoBase = $productoModel -> getAllById($producto['id_producto']);
