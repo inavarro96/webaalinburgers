@@ -2,6 +2,7 @@
 
 require_once "../model/UserModel.php";
 require_once "../service/UsuarioService.php";
+require_once "../utils/EncriptacionMd5.php";
 
 header('Content-Type: application/json');
 $response = array('state'=>'', 'data'=>'');
@@ -17,18 +18,23 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
     }
 
     if($_GET['action'] === 'getAll') {
+
         $response['data'] = $service -> getAll();
      }
+    if($_GET['action'] === 'getAll') {
+
+        $response['data'] = $service -> getAll();
+    }
 
      if($_GET['action'] === 'post') {
      
          $response['data'] = $service-> post($_POST);
      }
 
-    if($_GET['action'] === 'registarUsuario') {
-        $_POST['usuario'] = "israel";
+    if($_GET['action'] === 'registrarUsuario') {
+        $_POST['usuario'] = "israel2";
         $_POST['telefono'] = "7361040461";
-        $_POST['password'] = "israel";
+        $_POST['password'] = "israel2";
         $_POST['nombre'] = "Israel";
         $_POST['apellidos'] = "Navarro";
         $_POST['perfil'] = "1";

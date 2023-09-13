@@ -127,13 +127,12 @@
                     />
                     <label class="form-label" for="usuario">Usuario</label>
                 </div>
-                <div class="form-outline  mb-4" ng-show="!usuario.id">
+                <div class="form-outline mb-4">
                     <input
-                        type="password"
+                        type="{{usuario.id?'text':'password'}}"
                         id="password"
                         class="form-control form-control-lg {{usuario.id?'active':''}}"
                         name="password"
-                        ng-required="!usuario.id"
                         ng-model="usuario.password"
                         
                     />
