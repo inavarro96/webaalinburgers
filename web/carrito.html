@@ -369,8 +369,14 @@
                     });
                 };
                 $scope.terminarPedido = () => {
+
+                    let productosArray = Object.entries($scope.productos)
+                    angular.forEach(productosArray, function (producto, key) {
+                        $scope.productos[key].ingredientes= $scope.seleccionarIngredientes(producto[1].ingredientes);
+                    })
                     $scope.pedido.productos = $scope.productos;
-                    
+                    console.log("PRODUCTO", $scope.pedido);
+
                     $http({
                         url : '/webaalinburgers/app/controller/PedidoController.php?action=post',
                         method : "POST",
@@ -385,16 +391,33 @@
                          timer: 1300
                         }
                        )
-                        
+
                     $timeout(function() {
+                        $scope.productos = [];
+                        $scope.pedido = {};
+                        $scope.totales = {};
                         window.location.href = "index.html";
                     },1400);
-                       $scope.pedido = null;
+
                     }, function(response) {
                         console.error(response);
 
                     });
+
                 };
+
+                $scope.seleccionarIngredientes = ingredientes => {
+                    let valores = Object.entries(ingredientes);
+
+                    let ingredientesFiltrados = valores.filter(idIngrediente => idIngrediente[1] != "0");
+
+                    let ingredientesSelected = [];
+                    ingredientesFiltrados.forEach(ing => {
+                        console.log("valores, ", ing)
+                        ingredientesSelected.push(ing[1].nombre);
+                    })
+                    return ingredientesSelected.join(", ");
+                }
 
                 $scope.sumarProductos = producto => {
                     producto.cantidad =  parseInt(producto.cantidad) +1;

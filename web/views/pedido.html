@@ -112,6 +112,7 @@
                     <thead class="bg-light">
                         <tr>
                             <th>Nombre</th>
+                            <th>Ingredientes</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
                             <th>SubTotal</th>
@@ -121,7 +122,7 @@
                         <td >
                             <div class="d-flex align-items-center">
                                 <img
-                                    src="{{producto.imagen}}"
+                                    src="../fotos/{{producto.imagen}}"
                                     alt="Sin imagen"
                                     style="width: 45px; height: 45px"
                                     class="rounded-circle"
@@ -130,6 +131,9 @@
                                     <p class="fw-bold mb-1">{{producto.nombre}}</p>
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">{{producto.ingredientes}}</p>
                         </td>
                         <td>
                             <p class="fw-normal mb-1">{{producto.precio}}</p>

@@ -5,7 +5,7 @@ require_once "ProductoModel.php";
 class PedidoModel extends Connection {
     
     public function getAll() {
-        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL";
+        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL ORDER BY fecha_creado";
         $stm = Connection::connect()->prepare($query);
         $stm -> execute();
         $pedidos = $stm -> fetchAll(PDO::FETCH_ASSOC);
@@ -14,7 +14,7 @@ class PedidoModel extends Connection {
     }
 
     public function getProductosByIdPedido($idPedido) {
-        $query = "select pp.cantidad, p.nombre, p.precio, p.imagen  from producto_pedido "
+        $query = "select pp.cantidad, p.nombre, p.precio, p.imagen, pp.ingredientes  from producto_pedido "
         ."pp inner join producto p on p.id = pp.id_producto "
         ."where pp.id_pedido = :id_pedido";
         $stm = Connection::connect()->prepare($query);
@@ -44,8 +44,9 @@ class PedidoModel extends Connection {
         $productoModel = new ProductoModel();
         foreach($pedido['productos'] as  &$producto) {
            
-            $stm3 =  Connection::connect() -> prepare("INSERT INTO producto_pedido(id_pedido, id_producto, cantidad)
-            VALUES (:id_pedido, :id_producto, :cantidad)");
+            $stm3 =  Connection::connect() -> prepare("INSERT INTO producto_pedido(id_pedido, id_producto, cantidad, ingredientes)
+            VALUES (:id_pedido, :id_producto, :cantidad, :ingredientes)");
+
             $stm3 -> bindParam("id_pedido",$idPedido['id'], PDO::PARAM_STR);
             $stm3 -> bindParam("id_producto",$producto['id_producto'], PDO::PARAM_STR);
             $stm3 -> bindParam("cantidad",$producto['cantidad'], PDO::PARAM_STR);
