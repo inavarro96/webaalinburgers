@@ -36,10 +36,11 @@ app.controller("productoCtrl", function($scope, $location, productoService, arch
 
 
     $scope.registrar = () => {
-
+       $scope.uploadFoto =document.getElementById("idUploadFoto").src;
+        $scope.producto.uploadFoto = $scope.dataURLtoFile($scope.uploadFoto);
         let fd = new FormData();
         fd.append('imagen', $scope.producto.uploadFoto);
-        console.log('dwqwd', $scope.producto.uploadFoto)
+
         archivoService.postFoto(fd).then(response => {
             console.log($scope.producto);
             $scope.producto.imagen = response.data;
@@ -55,6 +56,7 @@ app.controller("productoCtrl", function($scope, $location, productoService, arch
                         }
                        )
                        $scope.producto = null;
+                        document.getElementById("result").innerHTML=null;
                        $scope.getProductos();
                 } else {
                     Swal.fire(
@@ -86,17 +88,21 @@ app.controller("productoCtrl", function($scope, $location, productoService, arch
                 }
                )
         });
-        
+
         
     }
 
     $scope.actualizar = () => {
-        if($scope.producto.uploadFoto) {
+
+        if(document.getElementById("idUploadFoto")) {
+            $scope.uploadFoto =document.getElementById("idUploadFoto").src;
+            $scope.producto.uploadFoto = $scope.dataURLtoFile($scope.uploadFoto);
             let fd = new FormData();
             fd.append('imagen', $scope.producto.uploadFoto);
             archivoService.postFoto(fd).then(response => {
                 $scope.producto.imagen = response.data;
                 $scope.producto.uploadFoto = null;
+                document.getElementById("result").innerHTML=null;
                 $scope.actualizarProducto();
             }, reject => {
                 Swal.fire(
@@ -212,5 +218,17 @@ app.controller("productoCtrl", function($scope, $location, productoService, arch
         init();
     });
 
+    $scope.dataURLtoFile = dataurl => {
+        let arr = dataurl.split(',');
+        let mime = arr[0].match(/:(.*?);/)[1];
+        let bstr = atob(arr[arr.length - 1]);
+        let n =  bstr.length;
+        let u8arr = new Uint8Array(n);
+
+        while( n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], 'fotoImage.png', {type:mime});
+    };
 
 });

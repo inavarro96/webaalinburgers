@@ -167,34 +167,31 @@
                 <div class="form-outline mb-4" ng-if="producto.imagen">
                     <img
                         src="../fotos/{{producto.imagen}}"
-                        alt=""
-                        style="width: 100px; height: 100px"
-                        class="rounded-circle"
+                        alt="{{producto.imagen}}"
                     />
 
                 </div>
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="imagen">Imagen</label>
-                    <input
-                        type="file"
-                        class="form-control form-control-lg"
-                        id="imagen"
-                        accept="image/*"
-                        data-file-model="producto.uploadFoto"
-                    />
+                    <button
+                            type="button"
+                            class="btn btn-outline-success btn-rounded ml-5"
+                            data-mdb-ripple-color="dark"
+                            data-mdb-toggle="modal"
+                            data-mdb-target="#modalCortarImagen"
+                    >
+                        <i class="far fa-file-image"></i> Seleccionar imagen
+                    </button>
+<!--                    <label class="form-label" for="imagen">Imagen</label>-->
+<!--                    <input-->
+<!--                        type="file"-->
+<!--                        class="form-control form-control-lg"-->
+<!--                        id="imagen"-->
+<!--                        accept="image/*"-->
+<!--                        data-file-model="producto.uploadFoto"-->
+<!--                    />-->
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-center mb-4">
-
-                <button
-                        type="button"
-                        class="btn btn-outline-success btn-rounded ml-5"
-                        data-mdb-ripple-color="dark"
-                        data-mdb-toggle="modal"
-                        data-mdb-target="#modalCortarImagen"
-                >
-                    imagen
-                </button>
                 <input
                     type="submit"
                     class="btn btn-outline-primary btn-rounded"
@@ -223,8 +220,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content ">
             <div class="modal-header mt-4">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmar Pedido</h5>
-                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Subir imagen </h5>
+                <button type="button" class="btn-close" id="btnRestoreClose" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div>
@@ -234,9 +231,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="file" id="fileInput" accept="image/*" />
-                <input type="button" id="btnRestore" value="Reiniciar" />
-                <input type="button" id="btnCrop"  data-mdb-dismiss="modal" value="Recortar y Cerrar" />
+                <input type="file" class="form-control" style="width: 40%!important;" id="fileInput" accept="image/*" />
+                <input type="button" id="btnRestore" class="btn btn-warning" value="Reiniciar" />
+                <input type="button" id="btnCrop" class="btn btn-success" data-mdb-dismiss="modal"
+                       value="Recortar y Cerrar" data-ng-click="producto.imagen = null"/>
             </div>
         </div>
     </div>
@@ -268,8 +266,15 @@
                         $('#btnCrop').click(function() {
                             // Get a string base 64 data url
                             var croppedImageDataURL = $("#canvas").cropper('getCroppedCanvas').toDataURL("image/png");
-                            $result.append( $('<img>').attr('src', croppedImageDataURL) );
+                            $result.append( $('<img id="idUploadFoto">').attr('src', croppedImageDataURL) );
+
                         });
+
+                        $('#btnRestoreClose').click(function() {
+                            $("#canvas").cropper('reset');
+                            $result.empty();
+                        });
+
                         $('#btnRestore').click(function() {
                             $("#canvas").cropper('reset');
                             $result.empty();

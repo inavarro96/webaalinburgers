@@ -74,7 +74,7 @@ app.controller("ingredienteCtrl", function ($scope, $route, $location,$routePara
     }
 
     $scope.toReturn = () => {
-      $location.path("productos");
+      $location.path("/productos");
     };
 
     $scope.actualizar = () => {
