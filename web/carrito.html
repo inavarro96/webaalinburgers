@@ -252,15 +252,22 @@
                             <span>${{totales.total}}</span>
                         </li>
                         <li
-                            class="list-group-item d-flex justify-content-center"
+                            class="list-group-item d-flex justify-content-between"
                         >
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-danger btn-rounded"
+                                    data-ng-click="confirmCancelarPedido()"
+                            >
+                                Cancelar
+                            </button>
                             <button
                                 type="button"
                                 class="btn btn-outline-primary btn-rounded"
                                 data-mdb-ripple-color="dark"
                                 data-mdb-toggle="modal" data-mdb-target="#modalTerminarPedido"
                             >
-                                Crear pedido
+                                Crear Pedido
                             </button>
                         </li>
                     </ul>
@@ -367,6 +374,54 @@
                         console.log(response);
                         
                     });
+                };
+
+                $scope.confirmCancelarPedido = () => {
+                    console.log('eliminar')
+                    Swal.fire({
+                        title: '¿Esta seguro que desea cancelar el pedido?',
+                        text: 'Se perderá su perdido',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si',
+                        cancelButtonText: 'No'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $scope.cancelarPedido();
+                        }
+                    })
+                }
+
+                $scope.cancelarPedido = () => {
+                    $http({
+                        url : '/webaalinburgers/app/controller/PedidoController.php?action=cancelarPedido',
+                        method : "POST",
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    }).then(function(response) {
+                        Swal.fire(
+                            {
+                                icon: 'success',
+                                title: 'Pedido cancelado',
+                                showConfirmButton: false,
+                                timer: 1300
+                            }
+                        )
+
+                        $timeout(function() {
+                            $scope.productos = [];
+                            $scope.pedido = {};
+                            $scope.totales = {};
+                            window.location.href = "index.html";
+                        },1400);
+
+                    }, function(response) {
+                        console.error(response);
+
+                    });
+
+
                 };
                 $scope.terminarPedido = () => {
 

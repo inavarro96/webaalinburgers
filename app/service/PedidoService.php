@@ -55,6 +55,12 @@ class PedidoService {
         return $result;
     }
 
+    public function cancelarPedido() {
+        session_start();
+        session_destroy();
+        return 'Pedido cancelado';
+    }
+
     public function getProductos() {
         $result = null;
         $productos = [];

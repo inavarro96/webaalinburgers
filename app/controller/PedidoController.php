@@ -23,6 +23,10 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
         $response['data'] = $service -> addProducto($_POST);
     }
 
+    if($_GET['action'] == 'cancelarPedido') {
+        $response['data'] = $service -> cancelarPedido();
+    }
+
     if($_GET['action'] == 'getProductos') {
         $response['data'] = $service -> getProductos();
     }

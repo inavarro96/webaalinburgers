@@ -296,6 +296,9 @@
                 };
 
                 $scope.seleccionarIngredientes = ingredientes => {
+                    if (!ingredientes) {
+                        return [];
+                    }
                     let valores = Object.entries(ingredientes);
                     console.log("valores, ", valores)
                     let ingredientesFiltrados = valores.filter(idIngrediente => idIngrediente[1] != "0");
