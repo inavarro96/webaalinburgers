@@ -20,6 +20,7 @@
                         <th scope="col">Visto</th>
                         <th scope="col">Atendido</th>
                         <th scope="col">Ver</th>
+                        <th scope="col">Imprimir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,15 @@
                                 ng-click="verDetallePedido(pedido)"
                             >
                                 <i class="far fa-eye"></i> Ver
+                            </button>
+                        </td>
+                        <td>
+                            <button
+                                    type="button"
+                                    class="btn btn-outline- btn-rounded"
+                                    ng-click="verDetallePedido(pedido)"
+                            >
+                                <i class="fas fa-clipboard-list"></i> Imprimir
                             </button>
                         </td>
                     </tr>
