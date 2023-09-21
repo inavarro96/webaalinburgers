@@ -10,7 +10,7 @@ if (isset($_GET['action']) and !empty($_GET['action'])) {
     $reportesService = new ReportePDFService();
     $response['state'] = 'OK';
     if($_GET['action'] === 'reporte') {
-        $pdf = $reportesService ->generarReportePdfPedido();
+        $pdf = $reportesService ->generarReportePdfPedido($_GET['idPedido']);
         $pdf -> Output();
     }
 } else {
