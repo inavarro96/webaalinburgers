@@ -5,8 +5,33 @@ class ReportePDFService {
     function generarReportePdfPedido($id): GeneraPDF {
         $pedidoService = new PedidoModel();
         $pdf = new GeneraPDF();
+        $productos = $pedidoService -> getProductosByIdPedido($id);
+        $pedido = $pedidoService ->getById($id);
         $pdf->AliasNbPages();
         $pdf->AddPage();
+
+        $pdf->SetFillColor(255,255,255);
+        $pdf->SetFont('Arial','B',10);
+        $pdf ->Cell(33,6,'Nombre Completo:',0,0,'L',1);
+        $pdf->SetFont('Arial','',10);
+        $pdf ->Cell(80,6,utf8_decode($pedido['nombre_completo']),0,1,'L',1);
+        $pdf->SetFont('Arial','B',10);
+
+        $pdf ->Cell(33,6,utf8_decode('Dirección: '),0,0,'L',1);
+        $pdf->SetFont('Arial','',10);
+        $pdf ->Cell(80,6,utf8_decode($pedido['direccion']),0,1,'L',1);
+
+        $pdf->SetFont('Arial','B',10);
+        $pdf ->Cell(33,6,utf8_decode('Teléfono: '),0,0,'L',1);
+        $pdf->SetFont('Arial','',10);
+        $pdf ->Cell(80,6,utf8_decode($pedido['telefono']),0,1,'L',1);
+
+        $pdf->SetFont('Arial','B',10);
+        $pdf ->Cell(33,6,utf8_decode('Fecha Creado: '),0,0,'L',1);
+        $pdf->SetFont('Arial','',10);
+        $pdf ->Cell(80,6,utf8_decode($pedido['fecha_creado']),0,1,'L',1);
+
+        $pdf ->Cell(60,6,'',0,1,'C',1);
 
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('Arial','B',10);
@@ -17,7 +42,6 @@ class ReportePDFService {
         $pdf->Cell(22,6,'SubTotal',1,1,'C',1);
 
         $pdf->SetFont('Arial','',10);
-        $productos = $pedidoService -> getProductosByIdPedido($id);
 
         foreach ($productos as &$producto) {
             $pdf -> Cell(60,6,utf8_decode($producto['nombre']),1,0,'C');

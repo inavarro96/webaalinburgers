@@ -9,7 +9,7 @@ $response = array('state'=>'', 'data'=>'');
 if (isset($_GET['action']) and !empty($_GET['action'])) {
     $reportesService = new ReportePDFService();
     $response['state'] = 'OK';
-    if($_GET['action'] === 'reporte') {
+    if($_GET['action'] === 'ticket-pedido') {
         $pdf = $reportesService ->generarReportePdfPedido($_GET['idPedido']);
         $pdf -> Output();
     }

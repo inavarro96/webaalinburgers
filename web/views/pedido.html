@@ -55,13 +55,14 @@
                             </button>
                         </td>
                         <td>
-                            <button
-                                    type="button"
-                                    class="btn btn-outline- btn-rounded"
-                                    ng-click="verDetallePedido(pedido)"
+                            <a
+                                type="button"
+                                class="btn btn-outline- btn-rounded"
+                                target="_blank"
+                                href="../app/controller/ReportesController.php?action=ticket-pedido&idPedido={{pedido.id}}"
                             >
                                 <i class="fas fa-clipboard-list"></i> Imprimir
-                            </button>
+                            </a>
                         </td>
                     </tr>
                   

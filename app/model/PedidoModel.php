@@ -14,11 +14,11 @@ class PedidoModel extends Connection {
     }
 
     public function getById($id) {
-        $query = "SELECT * FROM pedido WHERE fecha_eliminado AND id= :id IS NULL ORDER BY fecha_creado";
+        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL AND id= :id  ORDER BY fecha_creado";
         $stm = Connection::connect()->prepare($query);
         $stm -> bindParam("id",$id, PDO::PARAM_INT);
         $stm -> execute();
-        return $stm -> fetchAll(PDO::FETCH_ASSOC);
+        return $stm -> fetch(PDO::FETCH_ASSOC);
     }
 
     public function getProductosByIdPedido($idPedido) {
