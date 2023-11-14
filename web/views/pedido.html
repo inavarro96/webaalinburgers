@@ -3,7 +3,54 @@
         <h5>Pedidos registrados</h5>
     </div>
     <div class="card-body">
+
+        <div class="card">
+            <div class="card-header">Filtrar por</div>
+            <div class="card-body">
+                <form
+                novalidate
+                name="formSearch"
+                autocomplete="off">
+                    <div class="row">
+                        <div class="col">
+                            <!-- Search Nombre -->
+                            <div class="form-outline">
+                                <input type="text" id="formSearchNombre" class="form-control" ng-model="formSearchNombre"/>
+                                <label class="form-label" for="formSearchNombre">Nombre</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Search Atendido-->
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="1" id="checkAtendido" ng-model="formSearchAtendido"/>
+                                <label class="form-check-label" for="checkAtendido"> Atendido</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="0" id="checkPorATender" ng-model="formSearchAtendido"/>
+                                <label class="form-check-label" for="checkPorATender" >Por atender</label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <!-- Search Visto -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="1" id="checkVisto"  ng-model="formSearchVisto"/>
+                                <label class="form-check-label" for="checkVisto">Visto</label>
+                            </div>
+
+                            <!-- Checked checkbox -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="0" id="checkPorVer" ng-model="formSearchVisto"/>
+                                <label class="form-check-label" for="checkPorVer">Por ver</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="table-responsive">
+
             <button type="button" 
                 class="btn btn-outline-danger btn-rounded" 
                 ng-click="confirmDeleteSelected()"
@@ -24,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-ng-repeat="pedido in pedidos">
+                    <tr data-ng-repeat="pedido in pedidos | filter: {nombre_completo: formSearchNombre, atendido: formSearchAtendido, visto: formSearchVisto }">
                         <th scope="row"><input type="checkbox"
                             ng-model="idsCheck[pedido.id].value"
                             ng-click="selectedPedido(pedido.id,idsCheck[pedido.id].value)"></th>
@@ -173,3 +220,5 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>

@@ -5,8 +5,23 @@ app.controller("pedidoCtrl", function($scope, pedidoService) {
     $scope.totales = {};
     $scope.idsSelected = [];
     $scope.getPedidos = () => {
+
         pedidoService.getAll().then(response => {
-            $scope.pedidos = response.data;
+
+            Object.keys(response.data).forEach(j => {
+                $scope.pedidos.push({
+                    atendido : response.data[j]['atendido'],
+                    direccion: response.data[j]['direccion'],
+                    fecha_creado: response.data[j]['fecha_creado'],
+                    fecha_eliminado: response.data[j]['fecha_eliminado'],
+                    id: response.data[j]['id'],
+                    nombre_completo: response.data[j]['nombre_completo'],
+                    telefono: response.data[j]['telefono'],
+                    visto: response.data[j]['visto']
+
+                })
+            });
+            // $scope.pedidos = response.data;
             console.log($scope.pedidos);
         }, reject => {
             console.log('Error al obtener los productos', reject)
@@ -46,6 +61,7 @@ app.controller("pedidoCtrl", function($scope, pedidoService) {
     }
 
     $scope.getProductosByIdPedido = idPedido => {
+
         pedidoService.getProductosByIdPedido(idPedido).then(response => {
             $scope.productosPedido = response.data;
             console.log($scope.productosPedido);
