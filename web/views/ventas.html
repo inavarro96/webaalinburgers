@@ -5,7 +5,7 @@
     <div class="card-body">
 
         <div class="card">
-            <div class="card-header">Filtrar por</div>
+            <div class="card-header">Filtrar por fechas</div>
             <div class="card-body">
                 <form
                 novalidate
@@ -15,54 +15,35 @@
                         <div class="col">
                             <!-- Search Nombre -->
                             <div class="form-outline">
-                                <input type="text" id="formSearchNombre" class="form-control" ng-model="formSearchNombre"/>
-                                <label class="form-label" for="formSearchNombre">Nombre</label>
+                                <input type="date" id="formSearchFirtsDate" class="form-control active" ng-model="formModel.formSearchFirtsDate"/>
+                                <label class="form-label" for="formSearchFirtsDate">Fecha inicio</label>
                             </div>
                         </div>
                         <div class="col">
                             <!-- Search Atendido-->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="1" id="checkAtendido" ng-model="formSearchAtendido"/>
-                                <label class="form-check-label" for="checkAtendido"> Atendido</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="0" id="checkPorATender" ng-model="formSearchAtendido"/>
-                                <label class="form-check-label" for="checkPorATender" >Por atender</label>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <!-- Search Visto -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="1" id="checkVisto"  ng-model="formSearchVisto"/>
-                                <label class="form-check-label" for="checkVisto">Visto</label>
-                            </div>
-
-                            <!-- Checked checkbox -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" value="0" id="checkPorVer" ng-model="formSearchVisto"/>
-                                <label class="form-check-label" for="checkPorVer">Por ver</label>
+                            <div class="form-outline">
+                                <input type="date" id="formSearchEndDate" class="form-control active" ng-model="formModel.formSearchEndDate"/>
+                                <label class="form-label" for="formSearchEndDate">Fecha Fin</label>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+            <div class="card-footer">
+                <button type="button"
+                        class="btn btn-outline-primary btn-rounded"
+                        data-mdb-ripple-color="dark"
+                        data-ng-click="getPedidos()">Buscar</button>
+            </div>
         </div>
 
         <div class="table-responsive">
-
-            <button type="button" 
-                class="btn btn-outline-danger btn-rounded" 
-                ng-click="confirmDeleteSelected()"
-                ng-disabled="!idsSelected.length"
-                data-mdb-ripple-color="dark">
-                <i class="far fa-trash-alt"></i> Eliminar seleccionados</button>
             <table class="table table-hover text-nowrap">
                 <thead>
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Fecha creado</th>
+                        <th scope="col">Fecha Creado</th>
                         <th scope="col">Dirección</th>
                         <th scope="col">Teléfono</th>
                         <th scope="col">Visto</th>
@@ -81,6 +62,7 @@
                         <td>{{pedido.direccion}}</td>
                         <td>{{pedido.telefono}}</td>
                         <td><span class=" {{pedido.visto==1?'text-success':'text-danger'}}">{{pedido.visto==1?'Visto':'Sin ver'}}</span></td>
+
                         <td>
                             <button
                                 type="button"

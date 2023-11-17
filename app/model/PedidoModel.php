@@ -5,7 +5,7 @@ require_once "ProductoModel.php";
 class PedidoModel extends Connection {
     
     public function getAll() {
-        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL ORDER BY fecha_creado";
+        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL ORDER BY fecha_creado DESC";
         $stm = Connection::connect()->prepare($query);
         $stm -> execute();
         $pedidos = $stm -> fetchAll(PDO::FETCH_ASSOC);
@@ -14,11 +14,22 @@ class PedidoModel extends Connection {
     }
 
     public function getById($id) {
-        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL AND id= :id  ORDER BY fecha_creado";
+        $query = "SELECT * FROM pedido WHERE fecha_eliminado IS NULL AND id= :id  ORDER BY fecha_creado DESC";
         $stm = Connection::connect()->prepare($query);
         $stm -> bindParam("id",$id, PDO::PARAM_INT);
         $stm -> execute();
         return $stm -> fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getByAtendidosAndFechaBetween($fechaInicio, $fechaFin) {
+        $query = "SELECT *  FROM pedido WHERE fecha_eliminado IS NULL AND 
+                CAST(fecha_creado as DATE) >= :fechaInicio and CAST(fecha_creado as DATE) <= :fechaFin and
+                atendido = 1 ORDER BY fecha_creado desc;";
+        $stm = Connection::connect() -> prepare($query);
+        $stm -> bindParam("fechaInicio", $fechaInicio, PDO::PARAM_STR);
+        $stm -> bindParam("fechaFin", $fechaFin, PDO::PARAM_STR);
+        $stm -> execute();
+        return $stm -> fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getProductosByIdPedido($idPedido) {

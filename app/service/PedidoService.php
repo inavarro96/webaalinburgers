@@ -18,6 +18,14 @@ class PedidoService {
         return $result;
     }
 
+    public function getByAtendidosAndFechaBetween($fechaInicio, $fechaFin) {
+        $model = new PedidoModel();
+        $fechaInicio = substr($fechaInicio, 0, 10);
+        $fechaFin = substr($fechaFin, 0, 10);
+        return $model -> getByAtendidosAndFechaBetween($fechaInicio, $fechaFin);
+
+    }
+
     public function post($pedido) {
         $result = null;
         if(isset($pedido['nombre_completo']) and !empty($pedido['nombre_completo'])) {

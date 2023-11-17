@@ -6,6 +6,7 @@ require_once "../model/UserModel.php";
 require_once "../model/NotificacionModel.php";
 require_once "../service/NotificacionService.php";
 require_once "../utils/Message.php";
+require_once "../utils/SplitFecha.php";
 
 require_once "../service/PedidoService.php";
 
@@ -29,6 +30,10 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
 
     if($_GET['action'] == 'getProductos') {
         $response['data'] = $service -> getProductos();
+    }
+
+    if ($_GET['action'] === 'getByAtendidosAndFechaBetween') {
+        $response['data'] = $service ->getByAtendidosAndFechaBetween($_GET['fechaInicio'], $_GET['fechaFin']);
     }
 
     if($_GET['action'] == 'put') {

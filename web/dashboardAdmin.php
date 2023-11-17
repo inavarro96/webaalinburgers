@@ -73,6 +73,15 @@ session_start();
                             ><i class="fas fa-users fa-fw me-3"></i
                             ><span>Usuarios</span></a
                         >
+                        <a
+                                href="#!/ventas" ng-if="user.perfil == 1"
+                                ng-class="{'active': $route.current.activetab == 'usuarios'}"
+                                class="list-group-item list-group-item-action py-2 ripple"
+                        ><i class="fas fa-book fa-fw me-3"></i
+                            >
+                            <span>Consulta ventas</span></a
+                        >
+
                     </div>
                 </div>
             </nav>
@@ -228,6 +237,7 @@ session_start();
         <script src="app/controllers/usuarioCtrl.js"></script>
         <script src="app/controllers/pedidoCtrl.js"></script>
         <script src="app/controllers/ingredienteCtrl.js"></script>
+        <script src="app/controllers/ventasCtrl.js"></script>
         <script src="js/push.min.js"></script>
         <script>
             window.onload = function() {

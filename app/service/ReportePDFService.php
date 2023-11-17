@@ -42,14 +42,23 @@ class ReportePDFService {
         $pdf->Cell(22,6,'SubTotal',1,1,'C',1);
 
         $pdf->SetFont('Arial','',10);
-
+        $totalCantidad = 0;
+        $totalPrecio = 0;
         foreach ($productos as &$producto) {
             $pdf -> Cell(60,6,utf8_decode($producto['nombre']),1,0,'C');
             $pdf -> Cell(65,6,utf8_decode($producto['ingredientes']),1,0,'C');
             $pdf -> Cell(22,6,$producto['precio'],1,0,'C');
             $pdf -> Cell(22,6,$producto['cantidad'],1,0,'C');
             $pdf -> Cell(22,6,$producto['precio'] * $producto['cantidad'],1,1,'C');
+            $totalCantidad += $producto['cantidad'];
+            $totalPrecio += $producto['precio'] * $producto['cantidad'];
         }
+        $pdf->SetFont('Arial','B',10);
+        $pdf -> Cell(60,6,'',0,0,'C');
+        $pdf -> Cell(65,6,'',0,0,'C');
+        $pdf -> Cell(22,6,'Total',1,0,'C');
+        $pdf -> Cell(22,6,$totalCantidad,1,0,'C');
+        $pdf -> Cell(22,6,$totalPrecio,1,1,'C');
 
         return $pdf;
     }
