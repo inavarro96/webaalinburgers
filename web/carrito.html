@@ -453,6 +453,7 @@
                         data :  $.param( $scope.pedido),
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).then(function(response) {
+                        $scope.productosArrayLength = 0;
                         Swal.fire(
                         {
                          icon: 'success',
@@ -470,6 +471,20 @@
                     },1400);
 
                     }, function(response) {
+                        Swal.fire(
+                            {
+                                icon: 'success',
+                                title: 'Pedido realizado',
+                                showConfirmButton: false,
+                                timer: 1300
+                            }
+                        )
+
+                        $timeout(function() {
+                            $scope.productos = [];
+                            $scope.pedido = {};
+                            $scope.totales = {};
+                            window.location.href = "index.html";
                         console.error(response);
 
                     });
