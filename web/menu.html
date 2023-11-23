@@ -302,11 +302,19 @@
                     let valores = Object.entries(ingredientes);
                     console.log("valores, ", valores)
                     let ingredientesFiltrados = valores.filter(idIngrediente => idIngrediente[1] != "0");
-                    let ingredientesSelected = [];
-                    ingredientesFiltrados.forEach(ing => {
-                        ingredientesSelected.push(ing[1]);
+
+                    let ingTempArray = Object.entries($scope.producto.ingredientes);
+                    console.log("$scope.producto.ingredientes", ingTempArray);
+                    let ingredientesSeleccionados = [];
+                    ingTempArray.forEach(ing => {
+
+                        let find =  ingredientesFiltrados.find(i => i[1].id == ing[1].id)
+                        if(find) {
+                            ing[1].checked = true;
+                        }
+                        ingredientesSeleccionados.push(ing[1]);
                     })
-                    return ingredientesSelected;
+                    return ingredientesSeleccionados;
                 }
 
                 $scope.agregarProducto = () => {
@@ -314,8 +322,8 @@
                     $scope.pedido.nombreProducto = $scope.producto.nombre;
                     $scope.pedido.imagen = $scope.producto.imagen;
                     $scope.pedido.precio = $scope.producto.precio;
-                    $scope.pedido.ingredientes = $scope.seleccionarIngredientes($scope.pedido.ingredientesSeleccionados);
-                    $scope.pedido.ingredientesProducto = $scope.producto.ingredientes;
+                    $scope.pedido.ingredientes =  $scope.seleccionarIngredientes($scope.pedido.ingredientesSeleccionados);
+                    // $scope.pedido.ingredientes = $scope.producto.ingredientes;
                     if($scope.pedido.cantidad > $scope.producto.cantidad) {
                         Swal.fire(
                         {

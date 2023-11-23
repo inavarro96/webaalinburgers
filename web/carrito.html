@@ -153,7 +153,7 @@
                 <div class="col-md-9">
                     <ul class="list-group list-group-light list-group-small">
                         <li class="list-group-item">
-                            <div class="row" data-ng-repeat="producto in productos">
+                            <div class="row" data-ng-repeat="producto in productos track by $index">
                                 <div class="col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
@@ -178,12 +178,14 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12"></div>
                                         <form class="col-md-6 col-sm-12">
-                                            <div class="form-check" data-ng-repeat="ingrediente in producto.ingredientesProducto track by $index">
-                                                <input class="form-check-input" type="checkbox" data-ng-model="producto.ingredientes[$index]" id="ingrediente{{ingrediente.id}}"
-                                                       ng-checked="checkedIngredientes(ingrediente.id, producto.ingredientes)"
-                                                       ng-true-value="{{ingrediente}}" ng-false-value="'0'">
-                                                <label for="ingrediente{{ingrediente.id}}" class="form-check-label"> {{ingrediente.nombre}}</label>
+                                            <div class="form-check" data-ng-repeat="ingrediente in producto.ingredientes track by $index">
+
+                                                <input class="form-check-input" type="checkbox" data-ng-model="ingrediente.checked" id="ingrediente{{ingrediente.id+''+$parent.$index}}"
+
+                                                       ng-true-value="'true'" ng-false-value="'false'">
+                                                <label for="ingrediente{{ingrediente.id+''+$parent.$index}}" class="form-check-label"> {{ingrediente.nombre}}</label>
                                             </div>
+
                                         </form>
                                     </div>
                                 </div>
@@ -378,7 +380,7 @@
                 };
 
                 $scope.checkedIngredientes = (idIngrediente, ingredientes) => {
-                    console.log("valor")
+                    console.log("valor", idIngrediente, ingredientes);
                     let s = Object.keys(ingredientes);
                     for (let i = 0; i < s.length; i++) {
                       if(ingredientes[i].id === idIngrediente) {
@@ -477,11 +479,11 @@
                 $scope.seleccionarIngredientes = ingredientes => {
                     let valores = Object.entries(ingredientes);
 
-                    let ingredientesFiltrados = valores.filter(idIngrediente => idIngrediente[1] != "0");
+                    let ingredientesFiltrados = valores.filter(idIngrediente => idIngrediente[1].checked == "true");
 
+                    console.log("INGREDIENTES ::: ", valores)
                     let ingredientesSelected = [];
                     ingredientesFiltrados.forEach(ing => {
-                        console.log("valores, ", ing)
                         ingredientesSelected.push(ing[1].nombre);
                     })
                     return ingredientesSelected.join(", ");
