@@ -41,7 +41,7 @@
             <table class="table table-hover text-nowrap">
                 <thead>
                     <tr>
-                        <th scope="col"></th>
+<!--                        <th scope="col"></th>-->
                         <th scope="col">Nombre</th>
                         <th scope="col">Fecha Creado</th>
                         <th scope="col">Dirección</th>
@@ -54,9 +54,7 @@
                 </thead>
                 <tbody>
                     <tr data-ng-repeat="pedido in pedidos | filter: {nombre_completo: formSearchNombre, atendido: formSearchAtendido, visto: formSearchVisto }">
-                        <th scope="row"><input type="checkbox"
-                            ng-model="idsCheck[pedido.id].value"
-                            ng-click="selectedPedido(pedido.id,idsCheck[pedido.id].value)"></th>
+<!--                        <th scope="row"><input type="checkbox" ng-model="idsCheck[pedido.id].value" ng-click="selectedPedido(pedido.id,idsCheck[pedido.id].value)"></th>-->
                         <th scope="row">{{pedido.nombre_completo}}</th>
                         <td>{{pedido.fecha_creado}}</td>
                         <td>{{pedido.direccion}}</td>

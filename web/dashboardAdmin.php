@@ -75,7 +75,7 @@ session_start();
                         >
                         <a
                                 href="#!/ventas" ng-if="user.perfil == 1"
-                                ng-class="{'active': $route.current.activetab == 'usuarios'}"
+                                ng-class="{'active': $route.current.activetab == 'ventas'}"
                                 class="list-group-item list-group-item-action py-2 ripple"
                         ><i class="fas fa-book fa-fw me-3"></i
                             >

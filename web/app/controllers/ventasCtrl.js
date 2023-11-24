@@ -14,7 +14,7 @@ app.controller("ventasCtrl", function($scope, pedidoService) {
             $scope.formModel.formSearchFirtsDate.toJSON(),
             $scope.formModel.formSearchEndDate.toJSON()
             ).then(response => {
-
+            $scope.pedidos = [];
 
             Object.keys(response.data).forEach(j => {
                 $scope.pedidos.push({
