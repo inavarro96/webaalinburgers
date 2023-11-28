@@ -22,6 +22,17 @@ angular.module('app').service('pedidoService', function(httpFactory, $q) {
         });
     }
 
+    SELF.getEstadisticasProductoAndFechaBetween = (fechaInicio, fechaFin) => {
+        return $q((resolve, reject) => {
+            httpFactory.get(`${URL}getEstadisticasProductoAndFechaBetween&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`).then(response => {
+                resolve(response);
+            }, error => {
+                reject(error);
+            })
+        });
+    }
+
+
     SELF.getProductosByIdPedido = (idPedido) => {
         return $q((resolve, reject) => {
             httpFactory.get(`${URL}getProductosByIdPedido&id_pedido=${idPedido}`).then(response => {

@@ -26,6 +26,11 @@ app.config(function($locationProvider, $routeProvider) {
         controller:"ventasCtrl",
         activetab:"ventas"
     })
+    .when("/estadisticas", {
+        templateUrl:"/webaalinburgers/web/views/estadisticas.html",
+        controller:"estadisticasCtrl",
+        activetab:"estadisticas"
+    })
     .when("/ingredientes/:id/:nombre", {
         templateUrl:"/webaalinburgers/web/views/ingrediente.html",
         controller:"ingredienteCtrl",

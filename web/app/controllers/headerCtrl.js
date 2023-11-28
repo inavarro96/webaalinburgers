@@ -59,7 +59,7 @@ app.controller('headerCtrl', function($scope, sesionService, sessionFactory, not
     $scope.createPushNotificacion = (asunto, descripcion) => {
         Push.create(asunto, {
             body: descripcion,
-            icon: '../../img/icon.png',
+            icon: './img/alert.png',
             timeout: 5000,
             vibrate:[100,100,100],
             onclick: function() {

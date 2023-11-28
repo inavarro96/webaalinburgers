@@ -36,6 +36,10 @@ if(isset($_GET['action']) and !empty($_GET['action'])) {
         $response['data'] = $service ->getByAtendidosAndFechaBetween($_GET['fechaInicio'], $_GET['fechaFin']);
     }
 
+    if($_GET['action'] === 'getEstadisticasProductoAndFechaBetween') {
+        $response['data'] = $service -> getEstadisticasProducto($_GET['fechaInicio'], $_GET['fechaFin']);
+    }
+
     if($_GET['action'] == 'put') {
         $response['data'] = $service -> put($_POST);
     }

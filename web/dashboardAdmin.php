@@ -42,14 +42,6 @@ session_start();
             >
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <!-- <a
-                            href="#!/"
-                            class="list-group-item list-group-item-action py-2 ripple"
-                            aria-current="true"
-                        >
-                            <i class="fas fa-tachometer-alt fa-fw me-3"></i
-                            ><span>Dashboard</span>
-                        </a> -->
 
                         <a
                             href="#!/pedidos"
@@ -79,8 +71,13 @@ session_start();
                                 class="list-group-item list-group-item-action py-2 ripple"
                         ><i class="fas fa-book fa-fw me-3"></i
                             >
-                            <span>Consulta ventas</span></a
-                        >
+                            <span>Consulta ventas</span></a>
+                        <a
+                                href="#!/estadisticas" ng-if="user.perfil == 1"
+                                ng-class="{'active': $route.current.activetab == 'estadisticas'}"
+                                class="list-group-item list-group-item-action py-2 ripple"
+                        ><i class="fas fa-chart-line fa-fw me-3"></i>
+                            <span>Estadísticas</span></a>
 
                     </div>
                 </div>
@@ -109,13 +106,6 @@ session_start();
 
                     <!-- Brand -->
                     <a class="navbar-brand" href="">
-                        <!-- <img
-                            src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
-                            height="25"
-                            alt=""
-                            loading="lazy"
-                        /> -->
-
                         Alien Burgers
                     </a>
 
@@ -126,8 +116,7 @@ session_start();
                             <a
                                 class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
                                 href="#"
-                                id="navbarDropdownMenuLink"
-                                role="button"
+                                id="navbarDropdownMenuNotificacion"
                                 data-mdb-toggle="dropdown"
                                 aria-expanded="false"
                             >
@@ -139,7 +128,7 @@ session_start();
                             </a>
                             <ul
                                 class="dropdown-menu dropdown-menu-end"
-                                aria-labelledby="navbarDropdownMenuLink"
+                                aria-labelledby="navbarDropdownMenuNotificacion"
                             >
                                 <li ng-repeat="notificacion in notificaciones">
                                     <a class="dropdown-item" href="#!/pedidos"
@@ -147,8 +136,8 @@ session_start();
                                         >{{notificacion.asunto}}</a
                                     >
                                 </li>
-                                
-                               
+
+
                             </ul>
                         </li>
 
@@ -157,7 +146,7 @@ session_start();
                             <a
                                 class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
                                 href="#"
-                                id="navbarDropdownMenuLink"
+                                id="navbarDropdownMenuUser"
                                 role="button"
                                 data-mdb-toggle="dropdown"
                                 aria-expanded="false"
@@ -167,7 +156,7 @@ session_start();
                             </a>
                             <ul
                                 class="dropdown-menu dropdown-menu-end"
-                                aria-labelledby="navbarDropdownMenuLink"
+                                aria-labelledby="navbarDropdownMenuUser"
                             >
                                 <li>
                                     <a class="dropdown-item" href="" ng-click="destroy()"
@@ -220,7 +209,7 @@ session_start();
         <!-- Angular factories -->
         <script src="app/factories/httpFactory.js"></script>
         <script src="app/factories/sessionFactory.js"></script>
-        
+
         <!-- Angular services -->
         <script src="app/service/productoService.js"></script>
         <script src="app/service/usuarioService.js"></script>
@@ -229,7 +218,7 @@ session_start();
         <script src="app/service/sesionService.js"></script>
         <script src="app/service/notificacionService.js"></script>
         <script src="app/service/ingredienteService.js"></script>
-        
+
         <!-- Angular controllers -->
         <script src="app/controllers/headerCtrl.js"></script>
         <script src="app/controllers/mainCtrl.js"></script>
@@ -238,6 +227,7 @@ session_start();
         <script src="app/controllers/pedidoCtrl.js"></script>
         <script src="app/controllers/ingredienteCtrl.js"></script>
         <script src="app/controllers/ventasCtrl.js"></script>
+        <script src="app/controllers/estadisticasCtrl.js"></script>
         <script src="js/push.min.js"></script>
         <script>
             window.onload = function() {

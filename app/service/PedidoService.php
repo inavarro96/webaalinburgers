@@ -26,6 +26,13 @@ class PedidoService {
 
     }
 
+    public function getEstadisticasProducto($fechaInicio, $fechaFin) {
+        $model = new PedidoModel();
+        $fechaInicio = substr($fechaInicio, 0, 10);
+        $fechaFin = substr($fechaFin, 0, 10);
+        return $model -> getEstadisticasProducto($fechaInicio, $fechaFin);
+    }
+
     public function post($pedido) {
         $result = null;
         if(isset($pedido['nombre_completo']) and !empty($pedido['nombre_completo'])) {
