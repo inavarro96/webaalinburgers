@@ -45,13 +45,13 @@ class PedidoModel extends Connection {
     }
 
     public function getEstadisticasProducto($fechaInicio, $fechaFin) {
-        $query = "select p.id,p.nombre, sum(pp.cantidad) as total from producto_pedido pp "
+        $query = "select p.id,p.nombre, sum(pp.cantidad) as total,CAST(p2.fecha_creado as DATE) as fecha_creado from producto_pedido pp "
         ."inner join producto p on p.id = pp.id_producto "
         ."inner join pedido p2 ON p2.id = pp.id_pedido "
         ."WHERE p2.fecha_eliminado IS NULL AND "
         ."CAST(p2.fecha_creado as DATE) >= :fechaInicio and CAST(p2.fecha_creado as DATE) <= :fechaFin and "
         ."p2.atendido = 1 "
-        ."group by p.id ORDER BY p.nombre ASC";
+        ."group by p.id,CAST(p2.fecha_creado as DATE) ORDER BY p.nombre ASC";
 
         $stm = Connection::connect()->prepare($query);
         $stm -> bindParam("fechaInicio", $fechaInicio, PDO::PARAM_STR);
