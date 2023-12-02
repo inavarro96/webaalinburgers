@@ -6,12 +6,14 @@ app.controller("estadisticasCtrl", function ($scope, pedidoService) {
         formSearchEndDate: new Date()
     };
 
+
     $scope.getProductosVendidos = () => {
         console.log($scope.formModel);
-
+        $scope.fechaInicio = $scope.formModel.formSearchFirtsDate.toJSON();
+        $scope.fechaFin = $scope.formModel.formSearchEndDate.toJSON();
         pedidoService.getEstadisticasProductoAndFechaBetween(
-            $scope.formModel.formSearchFirtsDate.toJSON(),
-            $scope.formModel.formSearchEndDate.toJSON()
+            $scope.fechaInicio,
+            $scope.fechaFin
         ).then(response => {
             $scope.productos = [];
 

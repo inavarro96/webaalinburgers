@@ -35,11 +35,15 @@
                         data-mdb-ripple-color="dark"
                         data-ng-click="getProductosVendidos()">
                     <i class="fab fa-searchengin"></i> Buscar</button>
-                <button type="button"
-                        class="btn btn-outline-secondary btn-rounded"
-                        data-mdb-ripple-color="dark"
-                        data-ng-click="getProductosVendidos()">
-                    <i class="fas fa-clipboard-list"></i> Imprimir</button>
+
+                <a      ng-disabled="!productos.length"
+                        type="button"
+                        class="btn btn-outline- btn-rounded"
+                        target="_blank"
+                        href="../app/controller/ReportesController.php?action=productos-vendidos&fechaInicio={{fechaInicio}}&fechaFin={{fechaFin}}"
+                >
+                    <i class="fas fa-clipboard-list"></i> Imprimir
+                </a>
             </div>
         </div>
 
@@ -47,16 +51,19 @@
             <table class="table table-hover text-nowrap">
                 <thead>
                 <tr>
+                    <th>ID</th>
                     <th scope="col">Nombre del producto</th>
+                    <th>Fecha</th>
                     <th scope="col">Cantidad de productos vendidos</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="producto in productos | filter: {nombre: formSearchNombre, cantidad: formSearchCantidad}">
                     <!--                        <th scope="row"><input type="checkbox" ng-model="idsCheck[pedido.id].value" ng-click="selectedPedido(pedido.id,idsCheck[pedido.id].value)"></th>-->
+                    <td>{{producto.id}}</td>
                     <td>{{producto.nombre}}</td>
+                    <td>{{producto.fecha_creado}}</td>
                     <td>{{producto.total}}</td>
-
                 </tr>
 
                 </tbody>
